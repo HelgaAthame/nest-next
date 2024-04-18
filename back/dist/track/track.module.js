@@ -13,6 +13,7 @@ const track_service_1 = require("./track.service");
 const mongoose_1 = require("@nestjs/mongoose");
 const track_schema_1 = require("./schemas/track.schema");
 const comment_schema_1 = require("./schemas/comment.schema");
+const file_service_1 = require("../file/file.service");
 let TrackModule = class TrackModule {
 };
 exports.TrackModule = TrackModule;
@@ -23,7 +24,7 @@ exports.TrackModule = TrackModule = __decorate([
             mongoose_1.MongooseModule.forFeature([{ name: comment_schema_1.Comment.name, schema: comment_schema_1.CommentSchema }]),
         ],
         controllers: [track_controller_1.TrackController],
-        providers: [track_service_1.TrackService],
+        providers: [track_service_1.TrackService, file_service_1.FileService],
     })
 ], TrackModule);
 //# sourceMappingURL=track.module.js.map

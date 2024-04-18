@@ -3,3 +3,4 @@ server/.env
 back/node_modules
 back/.env
 node_modules
+back/dist

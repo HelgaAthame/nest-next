@@ -1,8 +1,9 @@
+/// <reference types="multer" />
 export declare enum FileType {
     AUDIO = "audio",
     IMAGE = "image"
 }
 export declare class FileService {
-    createFile(type: FileType, file: File): void;
+    createFile(type: FileType, file: Express.Multer.File): Promise<string>;
     removeFile(fileName: string): void;
 }

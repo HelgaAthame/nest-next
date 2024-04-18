@@ -18,13 +18,17 @@ const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
 const track_schema_1 = require("./schemas/track.schema");
 const comment_schema_1 = require("./schemas/comment.schema");
+const file_service_1 = require("../file/file.service");
 let TrackService = class TrackService {
-    constructor(trackModel, commentModel) {
+    constructor(trackModel, commentModel, fileService) {
         this.trackModel = trackModel;
         this.commentModel = commentModel;
+        this.fileService = fileService;
     }
     async create(dto, picture, audio) {
-        const track = await this.trackModel.create({ ...dto, listens: 0 });
+        const audioPath = await this.fileService.createFile(file_service_1.FileType.AUDIO, audio);
+        const picaturePath = await this.fileService.createFile(file_service_1.FileType.IMAGE, picture);
+        const track = await this.trackModel.create({ ...dto, listens: 0, picture: picaturePath, audio: audioPath });
         return track;
     }
     async getOne(id) {
@@ -53,6 +57,7 @@ exports.TrackService = TrackService = __decorate([
     __param(0, (0, mongoose_1.InjectModel)(track_schema_1.Track.name)),
     __param(1, (0, mongoose_1.InjectModel)(comment_schema_1.Comment.name)),
     __metadata("design:paramtypes", [mongoose_2.Model,
-        mongoose_2.Model])
+        mongoose_2.Model,
+        file_service_1.FileService])
 ], TrackService);
 //# sourceMappingURL=track.service.js.map

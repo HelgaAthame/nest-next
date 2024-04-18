@@ -9,6 +9,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.FileService = exports.FileType = void 0;
 const common_1 = require("@nestjs/common");
 const path = require("path");
+const fs = require("fs/promises");
 const uuid = require("uuid");
 var FileType;
 (function (FileType) {
@@ -16,10 +17,19 @@ var FileType;
     FileType["IMAGE"] = "image";
 })(FileType || (exports.FileType = FileType = {}));
 let FileService = class FileService {
-    createFile(type, file) {
+    async createFile(type, file) {
         try {
-            const fileName = uuid.v4();
-            const filePath = path.resolve(__dirname, '..', 'static', fileName);
+            const fileExt = file.originalname.split('.').pop();
+            const fileName = uuid.v4() + '.' + fileExt;
+            const filePath = path.resolve(__dirname, '..', 'static', type);
+            try {
+                await fs.access(filePath);
+            }
+            catch (e) {
+                await fs.mkdir(filePath, { recursive: true });
+            }
+            await fs.writeFile(path.resolve(filePath + '/' + fileName), file.buffer);
+            return type + '/' + fileName;
         }
         catch (e) {
             throw new common_1.HttpException(e.message, common_1.HttpStatus.INTERNAL_SERVER_ERROR);
