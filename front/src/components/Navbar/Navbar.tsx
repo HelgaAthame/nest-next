@@ -2,7 +2,6 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
-import Button from '@mui/material/Button';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -24,7 +23,9 @@ export const Navbar = () => {
 
   const DrawerList = (
     <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
-      <Button onClick={toggleDrawer(false)}><Close color='secondary'/></Button>
+      <div className="min-h-12 w-full flex justify-end items-center px-2"><button onClick={toggleDrawer(false)} className="round">
+        <Close/></button></div>
+      
       <List>
         {menuItems.map(({text,href}, index) => (
           <ListItem key={href} disablePadding onClick={() => {
@@ -43,8 +44,9 @@ export const Navbar = () => {
   );
 
   return (
-    <div className="h-10 w-full flex justify-start backdrop-blur">
-      <Button onClick={toggleDrawer(true)}><Menu color='secondary'/></Button>
+    <div className="min-h-12 w-full flex justify-start backdrop-blur shadow items-center px-2 bg-white/50">
+      <button onClick={toggleDrawer(true)}
+      className="round" ><Menu/></button>
       <Drawer open={open} onClose={toggleDrawer(false)}>
         {DrawerList}
       </Drawer>
