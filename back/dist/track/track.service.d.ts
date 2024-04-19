@@ -36,7 +36,9 @@ export declare class TrackService {
     constructor(trackModel: Model<Track>, commentModel: Model<Comment>, fileService: FileService);
     create(dto: CreateTrackDto, picture: Express.Multer.File, audio: Express.Multer.File): Promise<Track>;
     getOne(id: ObjectId): Promise<Track>;
-    getAll(): Promise<Track[]>;
+    getAll(count?: number, offset?: number): Promise<Track[]>;
     delete(id: ObjectId): Promise<ObjectId>;
     addComment(dto: CreateCommentDto): Promise<Comment>;
+    listen(id: ObjectId): Promise<void>;
+    search(query?: string): Promise<Track[]>;
 }

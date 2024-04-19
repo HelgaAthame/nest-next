@@ -29,14 +29,20 @@ let TrackController = class TrackController {
     getOne(id) {
         return this.trackService.getOne(id);
     }
-    getAll() {
-        return this.trackService.getAll();
+    getAll(count, offset) {
+        return this.trackService.getAll(count, offset);
+    }
+    search(query) {
+        return this.trackService.search(query);
     }
     delete(id) {
         return this.trackService.delete(id);
     }
     addComment(dto) {
         return this.trackService.addComment(dto);
+    }
+    listen(id) {
+        return this.trackService.listen(id);
     }
 };
 exports.TrackController = TrackController;
@@ -61,10 +67,19 @@ __decorate([
 ], TrackController.prototype, "getOne", null);
 __decorate([
     (0, common_1.Get)(),
+    __param(0, (0, common_1.Query)('count')),
+    __param(1, (0, common_1.Query)('offset')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [Number, Number]),
     __metadata("design:returntype", void 0)
 ], TrackController.prototype, "getAll", null);
+__decorate([
+    (0, common_1.Get)('search'),
+    __param(0, (0, common_1.Query)('query')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], TrackController.prototype, "search", null);
 __decorate([
     (0, common_1.Delete)(':id'),
     __param(0, (0, common_1.Param)('id')),
@@ -79,6 +94,13 @@ __decorate([
     __metadata("design:paramtypes", [create_comment_dto_1.CreateCommentDto]),
     __metadata("design:returntype", void 0)
 ], TrackController.prototype, "addComment", null);
+__decorate([
+    (0, common_1.Post)('/listen'),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], TrackController.prototype, "listen", null);
 exports.TrackController = TrackController = __decorate([
     (0, common_1.Controller)('/tracks'),
     __metadata("design:paramtypes", [track_service_1.TrackService])

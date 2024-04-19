@@ -28,15 +28,24 @@ let TrackService = class TrackService {
     async create(dto, picture, audio) {
         const audioPath = await this.fileService.createFile(file_service_1.FileType.AUDIO, audio);
         const picaturePath = await this.fileService.createFile(file_service_1.FileType.IMAGE, picture);
-        const track = await this.trackModel.create({ ...dto, listens: 0, picture: picaturePath, audio: audioPath });
+        const track = await this.trackModel.create({
+            ...dto,
+            listens: 0,
+            picture: picaturePath,
+            audio: audioPath,
+        });
         return track;
     }
     async getOne(id) {
         const track = await this.trackModel.findById(id).populate('comments');
         return track;
     }
-    async getAll() {
-        const tracks = await this.trackModel.find();
+    async getAll(count = 10, offset = 0) {
+        console.log('get all tracks called');
+        const tracks = await this.trackModel
+            .find()
+            .skip(Number(offset))
+            .limit(Number(count));
         return tracks;
     }
     async delete(id) {
@@ -49,6 +58,17 @@ let TrackService = class TrackService {
         track.comments.push(comment.id);
         await track.save();
         return comment;
+    }
+    async listen(id) {
+        const track = await this.trackModel.findById(id);
+        track.listens += 1;
+        track.save();
+    }
+    async search(query = '') {
+        const tracks = await this.trackModel.find({
+            name: { $regex: new RegExp(query, 'i') },
+        });
+        return tracks;
     }
 };
 exports.TrackService = TrackService;

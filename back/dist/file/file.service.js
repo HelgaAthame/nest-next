@@ -28,7 +28,7 @@ let FileService = class FileService {
             catch (e) {
                 await fs.mkdir(filePath, { recursive: true });
             }
-            await fs.writeFile(path.resolve(filePath + '/' + fileName), file.buffer);
+            await fs.writeFile(path.resolve(filePath, fileName), file.buffer);
             return type + '/' + fileName;
         }
         catch (e) {

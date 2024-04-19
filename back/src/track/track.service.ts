@@ -9,11 +9,10 @@ import { FileService, FileType } from 'src/file/file.service';
 
 @Injectable()
 export class TrackService {
-
   constructor(
     @InjectModel(Track.name) private trackModel: Model<Track>,
     @InjectModel(Comment.name) private commentModel: Model<Comment>,
-    private fileService: FileService
+    private fileService: FileService,
   ) {}
 
   async create(
@@ -21,9 +20,17 @@ export class TrackService {
     picture: Express.Multer.File,
     audio: Express.Multer.File,
   ): Promise<Track> {
-    const audioPath = await this.fileService.createFile(FileType.AUDIO, audio)
-    const picaturePath = await this.fileService.createFile(FileType.IMAGE, picture)
-    const track = await this.trackModel.create({ ...dto, listens: 0, picture: picaturePath, audio: audioPath });
+    const audioPath = await this.fileService.createFile(FileType.AUDIO, audio);
+    const picaturePath = await this.fileService.createFile(
+      FileType.IMAGE,
+      picture,
+    );
+    const track = await this.trackModel.create({
+      ...dto,
+      listens: 0,
+      picture: picaturePath,
+      audio: audioPath,
+    });
     return track;
   }
 
@@ -32,11 +39,12 @@ export class TrackService {
     return track;
   }
 
-  async getAll(
-    count: number = 10,
-    offset: number = 0
-  ): Promise<Track[]> {
-    const tracks = await this.trackModel.find().skip(Number(offset)).limit(Number(count));
+  async getAll(count: number = 10, offset: number = 0): Promise<Track[]> {
+    console.log('get all tracks called');
+    const tracks = await this.trackModel
+      .find()
+      .skip(Number(offset))
+      .limit(Number(count));
     return tracks;
   }
   async delete(id: ObjectId): Promise<ObjectId> {
@@ -52,16 +60,16 @@ export class TrackService {
     return comment;
   }
 
-  async listen (id: ObjectId) {    
+  async listen(id: ObjectId) {
     const track = await this.trackModel.findById(id);
     track.listens += 1;
     track.save();
   }
 
-  async search (query: string = ""): Promise<Track[]> {
+  async search(query: string = ''): Promise<Track[]> {
     const tracks = await this.trackModel.find({
-      name: {$regex: new RegExp(query, 'i')}
-    })
+      name: { $regex: new RegExp(query, 'i') },
+    });
     return tracks;
   }
- }
+}
