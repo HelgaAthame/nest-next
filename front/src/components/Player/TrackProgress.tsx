@@ -9,7 +9,7 @@ export const TrackProgress = ({left, right, onChange}: Props) => {
     return (
         <div className="w-full flex gap-3">
 <input type="range" className="grow"
-min={left}
+min={0}
 max={right}
 value={left}
 onChange={onChange}/>
