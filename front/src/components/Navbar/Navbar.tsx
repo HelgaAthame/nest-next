@@ -12,6 +12,7 @@ import MailIcon from '@mui/icons-material/Mail';
 import { Close, Menu } from '@mui/icons-material';
 import { menuItems } from '@/consts/menuItems';
 import { useRouter } from 'next/navigation';
+import { IconButton } from '@mui/material';
 
 export const Navbar = () => {
   const [open, setOpen] = React.useState(false);
@@ -23,8 +24,9 @@ export const Navbar = () => {
 
   const DrawerList = (
     <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
-      <div className="min-h-12 w-full flex justify-end items-center px-2"><button onClick={toggleDrawer(false)} className="round">
-        <Close/></button></div>
+      {/* <div className="min-h-12 w-full flex justify-end items-center px-2"><button onClick={toggleDrawer(false)} className="round"> */}
+        <IconButton onClick={toggleDrawer(false)}><Close/></IconButton>
+        {/* </button></div> */}
       
       <List>
         {menuItems.map(({text,href}, index) => (
@@ -45,8 +47,8 @@ export const Navbar = () => {
 
   return (
     <div className="min-h-12 w-full flex justify-start backdrop-blur shadow items-center px-2 bg-white/50">
-      <button onClick={toggleDrawer(true)}
-      className="round" ><Menu/></button>
+      <IconButton onClick={toggleDrawer(true)}
+       ><Menu/></IconButton>
       <Drawer open={open} onClose={toggleDrawer(false)}>
         {DrawerList}
       </Drawer>

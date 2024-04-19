@@ -18,9 +18,14 @@ let AppModule = class AppModule {
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [serve_static_1.ServeStaticModule.forRoot({
+        imports: [
+            serve_static_1.ServeStaticModule.forRoot({
                 rootPath: (0, path_1.resolve)(__dirname, 'static'),
-            }), mongoose_1.MongooseModule.forRoot('mongodb+srv://athame:666@athame.vwrzwf2.mongodb.net/'), track_module_1.TrackModule, file_module_1.FileModule],
+            }),
+            mongoose_1.MongooseModule.forRoot('mongodb+srv://athame:666@athame.vwrzwf2.mongodb.net/'),
+            track_module_1.TrackModule,
+            file_module_1.FileModule
+        ],
     })
 ], AppModule);
 //# sourceMappingURL=app.module.js.map

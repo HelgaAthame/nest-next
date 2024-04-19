@@ -41,7 +41,6 @@ let TrackService = class TrackService {
         return track;
     }
     async getAll(count = 10, offset = 0) {
-        console.log('get all tracks called');
         const tracks = await this.trackModel
             .find()
             .skip(Number(offset))

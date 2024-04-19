@@ -2,13 +2,20 @@
 import { Button } from "@mui/material"
 import { useRouter } from "next/navigation";
 
-export const TrackHeader = () => {
+interface Props {
+  title: string;
+  button: {
+    title: string;
+    link: string;
+  }
+}
+export const TrackHeader = ({title, button}: Props) => {
   const router = useRouter();
     return(<div className="w-full flex justify-between items-center">
-        <h1>Track list</h1>
+        <h1>{title}</h1>
       <Button variant="contained" color="secondary"
       onClick={() => {
-        router.push("/tracks/create")
+        router.push(button.link)
       }}
-      >Upload</Button></div>)
+      >{button.title}</Button></div>)
 }

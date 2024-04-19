@@ -1,12 +1,14 @@
-import {Navbar} from "@/components/Navbar";
+
+import { Steps } from "@/components/StepWrapper";
 import { Fragment } from "react";
 
 export default function CreateTrack() {
+
   return (
-   <Fragment>
+   <div className="pd flex-col grow">
         <h1>Create Track</h1> 
-           
-    </Fragment>
+           <Steps/>
+    </div>
   );
 }
 

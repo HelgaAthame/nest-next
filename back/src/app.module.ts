@@ -6,8 +6,12 @@ import {resolve} from "path";
 import {ServeStaticModule} from "@nestjs/serve-static"
 
 @Module({
-  imports: [ServeStaticModule.forRoot({
+  imports: [
+    ServeStaticModule.forRoot({
     rootPath: resolve(__dirname, 'static'),
-  }),MongooseModule.forRoot('mongodb+srv://athame:666@athame.vwrzwf2.mongodb.net/'), TrackModule, FileModule],
+  }),
+  MongooseModule.forRoot('mongodb+srv://athame:666@athame.vwrzwf2.mongodb.net/'), 
+  TrackModule, 
+  FileModule],
 })
 export class AppModule {}
