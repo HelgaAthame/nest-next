@@ -24,7 +24,7 @@ exports.AppModule = AppModule = __decorate([
             }),
             mongoose_1.MongooseModule.forRoot('mongodb+srv://athame:666@athame.vwrzwf2.mongodb.net/'),
             track_module_1.TrackModule,
-            file_module_1.FileModule
+            file_module_1.FileModule,
         ],
     })
 ], AppModule);
