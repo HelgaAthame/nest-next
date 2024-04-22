@@ -1,16 +1,14 @@
 "use client";
-import { Pause, Photo, PlayArrow, VolumeUp } from "@mui/icons-material";
-import { IconButton } from "@mui/material";
+import {Pause, Photo, PlayArrow, VolumeUp} from "@mui/icons-material";
+import {IconButton} from "@mui/material";
 import Image from "next/image";
-import { TrackProgress } from "./TrackProgress";
-import { appStore } from "@/store/store";
-import { useEffect, MouseEventHandler, useState, ChangeEvent } from "react";
+import {TrackProgress} from "./TrackProgress";
+import {appStore} from "@/store/store";
+import {useEffect, MouseEventHandler, useState, ChangeEvent} from "react";
 
 let audio: HTMLAudioElement;
 export const Player = () => {
-  const { track, active, setTrack, setActive } = appStore(
-    (state: any) => state
-  );
+  const {track, active, setTrack, setActive} = appStore((state: any) => state);
   const [volume, setVolume] = useState<number>(50);
   const [curTime, setCurTime] = useState<number>(0);
   const [duration, setDuration] = useState<number>(0);
@@ -36,11 +34,6 @@ export const Player = () => {
   const play: MouseEventHandler<HTMLButtonElement> | undefined = (e) => {
     e.stopPropagation();
     setActive(!active);
-    if (active) {
-      audio.play();
-    } else {
-      audio.pause();
-    }
   };
 
   useEffect(() => {
@@ -49,6 +42,14 @@ export const Player = () => {
       setAudio();
     }
   }, []);
+
+  useEffect(() => {
+    if (active) {
+      audio.play();
+    } else {
+      audio.pause();
+    }
+  }, [active]);
 
   const setAudio = () => {
     if (track) {
@@ -63,7 +64,7 @@ export const Player = () => {
     }
   };
 
-  return (
+  return track ? (
     <div className="h-12 w-full bottom flex items-center p-2 gap-2 bg/white-50">
       <IconButton onClick={play}>
         {active ? <PlayArrow /> : <Pause />}
@@ -94,5 +95,5 @@ export const Player = () => {
       <VolumeUp />
       <TrackProgress left={volume} right={100} onChange={changeVolume} />
     </div>
-  );
+  ) : null;
 };
