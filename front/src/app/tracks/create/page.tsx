@@ -1,14 +1,13 @@
-
 import { Steps } from "@/components/StepWrapper";
-import { Fragment } from "react";
+import { Grid, Card } from "@mui/material";
 
 export default function CreateTrack() {
-
   return (
-   <div className="pd flex-col grow">
-        <h1>Create Track</h1> 
-           <Steps/>
-    </div>
+    <Grid container className="pd h-full">
+      <Card className="pd grow backdrop-blur bg-white/50 flex flex-col gap-4">
+        <h1>Create Track</h1>
+        <Steps />
+      </Card>
+    </Grid>
   );
 }
-

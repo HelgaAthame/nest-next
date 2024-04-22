@@ -20,16 +20,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <main className="flex h-screen flex-col items-center justify-between overflow-hidden bg-cover "
-      // style={{
-      //   backgroundImage: `url(${bgimage.src})`,
-      // }}
-      >
-      <Navbar/>
-      <section className="grow overflow-y-auto w-full ">
-      {children}</section>  
-      <Player/>    
-    </main></body>
+        <main
+          className="flex h-screen flex-col items-center justify-between overflow-hidden bg-cover "
+          style={{
+            backgroundImage: `url(${bgimage.src})`,
+          }}
+        >
+          <Navbar />
+          <section className="grow overflow-y-auto w-full ">{children}</section>
+          <Player />
+        </main>
+      </body>
     </html>
   );
 }
