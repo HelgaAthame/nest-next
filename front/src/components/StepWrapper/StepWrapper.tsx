@@ -7,12 +7,26 @@ import {
   Button,
   TextField,
 } from "@mui/material";
-import { Fragment, useState } from "react";
-import { FileUpload, PicturePreview } from "../FileUpload";
-import { AudioPreview } from "../FileUpload/AudioPreview";
+import {ChangeEvent, Fragment, useState} from "react";
+import {FileUpload, PicturePreview} from "../FileUpload";
+import {AudioPreview} from "../FileUpload/AudioPreview";
+import {Track} from "@/types/track";
+import {useInput} from "@/hooks/useInput";
+
+const createTrack = async (payload: FormData): Promise<Track> => {
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+  const res = await fetch(`${baseUrl}/tracks`, {
+    method: "POST",
+    body: payload,
+  });
+  return res.json();
+};
 
 const steps = ["Info", "Cover", "Audio"];
 export const Steps = () => {
+  const trackName = useInput("");
+  const trackArtist = useInput("");
+  const lyrics = useInput("");
   const [activeStep, setActiveStep] = useState(0);
   const [picture, setPicture] = useState<File | null>(null);
   const [audio, setAudio] = useState<File | null>(null);
@@ -23,14 +37,35 @@ export const Steps = () => {
     setActiveStep((prev) => prev - 1);
   };
 
+  const createTrackHahdler = () => {
+    const formData = new FormData();
+    formData.append("name", trackName.value);
+    formData.append("artist", trackArtist.value);
+    formData.append("text", lyrics.value);
+    formData.append("picture", picture as Blob);
+    formData.append("audio", audio as Blob);
+    createTrack(formData);
+  };
+
   let StepContent = <Fragment></Fragment>;
   switch (activeStep) {
     case 0:
       StepContent = (
         <Fragment>
-          <TextField label="Track Name" fullWidth={true} color="secondary" />
-          <TextField label="Artist" fullWidth={true} color="secondary" />
           <TextField
+            {...trackName}
+            label="Track Name"
+            fullWidth={true}
+            color="secondary"
+          />
+          <TextField
+            label="Artist"
+            fullWidth={true}
+            color="secondary"
+            {...trackArtist}
+          />
+          <TextField
+            {...lyrics}
             label="Lyrics"
             fullWidth={true}
             multiline
@@ -97,10 +132,10 @@ export const Steps = () => {
         <Button
           variant="contained"
           color="secondary"
-          onClick={next}
-          disabled={activeStep === 3}
+          onClick={activeStep === 2 ? createTrackHahdler : next}
+          disabled={activeStep > 2}
         >
-          Next
+          {activeStep === 2 ? "Create" : "Next"}
         </Button>
       </div>
     </div>

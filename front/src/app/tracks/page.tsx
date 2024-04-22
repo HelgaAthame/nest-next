@@ -1,7 +1,6 @@
-import { TrackHeader } from "@/components/TrackHeader";
-import { TrackItem } from "@/components/TrackItem";
-import { Track } from "@/types/track";
-import { Card, Grid, Divider } from "@mui/material";
+import {TrackHeader} from "@/components/TrackHeader";
+import {TrackItem} from "@/components/TrackItem";
+import {Track} from "@/types/track";
 
 export const getTracks = async (): Promise<Track[]> => {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
@@ -11,8 +10,8 @@ export const getTracks = async (): Promise<Track[]> => {
 export default async function Tracks() {
   const tracks = await getTracks();
   return (
-    <Grid container className="pd">
-      <Card className="pd grow backdrop-blur bg-white/50 flex flex-col gap-4">
+    <div className="pd flex">
+      <div className="pd grow backdrop-blur bg-white/50 flex flex-col gap-4 rounded-md">
         <TrackHeader
           title="Track list"
           button={{
@@ -22,10 +21,10 @@ export default async function Tracks() {
         />
         <div className="flex flex-col">
           {tracks.map((track) => (
-            <TrackItem track={track} key={track._id} />
+            <TrackItem thisTrack={track} key={track._id} />
           ))}
         </div>
-      </Card>
-    </Grid>
+      </div>
+    </div>
   );
 }

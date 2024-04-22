@@ -23,6 +23,7 @@ let TrackController = class TrackController {
         this.trackService = trackService;
     }
     create(files, dto) {
+        console.log(dto);
         const { picture, audio } = files;
         return this.trackService.create(dto, picture[0], audio[0]);
     }

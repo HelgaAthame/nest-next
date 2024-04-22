@@ -27,7 +27,8 @@ export class TrackController {
     ]),
   )
   create(@UploadedFiles() files, @Body() dto: CreateTrackDto) {
-    const {picture, audio} = files;
+    console.log(dto);
+    const { picture, audio } = files;
     return this.trackService.create(dto, picture[0], audio[0]);
   }
 
@@ -37,14 +38,11 @@ export class TrackController {
   }
 
   @Get()
-  getAll(
-    @Query('count') count: number,
-    @Query('offset') offset: number) {
+  getAll(@Query('count') count: number, @Query('offset') offset: number) {
     return this.trackService.getAll(count, offset);
   }
   @Get('search')
-  search(
-    @Query('query') query: string) {
+  search(@Query('query') query: string) {
     return this.trackService.search(query);
   }
 

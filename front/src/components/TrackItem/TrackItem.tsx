@@ -1,18 +1,18 @@
 "use client";
-import { appStore } from "@/store/store";
-import { Track } from "@/types/track";
-import { Pause, PlayArrow, Photo, Delete } from "@mui/icons-material";
-import { IconButton, Divider } from "@mui/material";
+import {appStore} from "@/store/store";
+import {Track} from "@/types/track";
+import {Pause, PlayArrow, Photo, Delete} from "@mui/icons-material";
+import {IconButton, Divider} from "@mui/material";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { type MouseEventHandler, Fragment } from "react";
+import {useRouter} from "next/navigation";
+import {type MouseEventHandler, Fragment} from "react";
 
 interface Props {
-  track: Track;
+  thisTrack: Track;
   active?: boolean;
 }
-export const TrackItem = ({ track }: Props) => {
-  const { active, setTrack, setActive } = appStore((state: any) => state);
+export const TrackItem = ({thisTrack}: Props) => {
+  const {active, setTrack, setActive, track} = appStore((state: any) => state);
   const router = useRouter();
 
   const play: MouseEventHandler<HTMLButtonElement> | undefined = (e) => {
@@ -20,7 +20,8 @@ export const TrackItem = ({ track }: Props) => {
     setTrack(track);
     setActive(!active);
   };
-  return (
+
+  return track ? (
     <Fragment>
       <div
         className="flex items-center p-2 gap-2"
@@ -29,7 +30,7 @@ export const TrackItem = ({ track }: Props) => {
         }}
       >
         <IconButton onClick={play}>
-          {active ? <PlayArrow /> : <Pause />}
+          {active && thisTrack._id === track._id ? <PlayArrow /> : <Pause />}
         </IconButton>
         {track.picture ? (
           <div className="w-10 h-10 rounded relative shrink-0 overflow-clip">
@@ -53,5 +54,5 @@ export const TrackItem = ({ track }: Props) => {
       </div>
       <Divider className="last:hidden" />
     </Fragment>
-  );
+  ) : null;
 };
