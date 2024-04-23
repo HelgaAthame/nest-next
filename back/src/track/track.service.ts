@@ -1,4 +1,4 @@
-import { Injectable, Query } from '@nestjs/common';
+import { Injectable, NotFoundException, Query } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, ObjectId } from 'mongoose';
 import { Track } from './schemas/track.schema';
@@ -48,6 +48,7 @@ export class TrackService {
   }
   async delete(id: ObjectId): Promise<ObjectId> {
     const track = await this.trackModel.findByIdAndDelete(id);
+    if (!track) throw new NotFoundException({ message: 'Track not found' });
     return track.id;
   }
 

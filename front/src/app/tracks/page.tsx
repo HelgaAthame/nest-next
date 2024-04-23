@@ -4,7 +4,12 @@ import { Track } from "@/types/track";
 
 export const getTracks = async (): Promise<Track[]> => {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
-  const res = await fetch(`${baseUrl}/tracks/`, { next: { revalidate: 10 } });
+  const res = await fetch(`${baseUrl}/tracks/`, {
+    next: { revalidate: 10 },
+    headers: {
+      "Cache-Control": "no-cache", // Добавляем заголовок кэширования
+    },
+  });
   return res.json();
 };
 export default async function Tracks() {
@@ -21,7 +26,10 @@ export default async function Tracks() {
         />
         <div className="flex flex-col">
           {tracks.map((track) => (
-            <TrackItem thisTrack={track} key={track._id} />
+            <TrackItem
+              thisTrack={track}
+              key={track._id}
+            />
           ))}
         </div>
       </div>

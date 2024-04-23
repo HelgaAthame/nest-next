@@ -1,4 +1,5 @@
 "use client";
+import { getTracks } from "@/app/tracks/page";
 import { appStore } from "@/store/store";
 import { Track } from "@/types/track";
 import { Pause, PlayArrow, Photo, Delete } from "@mui/icons-material";
@@ -37,7 +38,7 @@ export const TrackItem = ({ thisTrack }: Props) => {
   ) => {
     e.stopPropagation();
     if (thisTrack._id) {
-      deleteTrack(String(thisTrack._id)).then((res) => console.log(res));
+      deleteTrack(String(thisTrack._id)).then((res) => getTracks());
     }
   };
 

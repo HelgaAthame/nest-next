@@ -49,6 +49,8 @@ let TrackService = class TrackService {
     }
     async delete(id) {
         const track = await this.trackModel.findByIdAndDelete(id);
+        if (!track)
+            throw new common_1.NotFoundException({ message: 'Track not found' });
         return track.id;
     }
     async addComment(dto) {
