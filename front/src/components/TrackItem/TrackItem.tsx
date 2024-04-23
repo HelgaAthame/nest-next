@@ -1,24 +1,44 @@
 "use client";
-import {appStore} from "@/store/store";
-import {Track} from "@/types/track";
-import {Pause, PlayArrow, Photo, Delete} from "@mui/icons-material";
-import {IconButton, Divider} from "@mui/material";
+import { appStore } from "@/store/store";
+import { Track } from "@/types/track";
+import { Pause, PlayArrow, Photo, Delete } from "@mui/icons-material";
+import { IconButton, Divider } from "@mui/material";
 import Image from "next/image";
-import {useRouter} from "next/navigation";
-import {type MouseEventHandler, Fragment} from "react";
+import { useRouter } from "next/navigation";
+import { type MouseEventHandler, Fragment } from "react";
 
 interface Props {
   thisTrack: Track;
   active?: boolean;
 }
-export const TrackItem = ({thisTrack}: Props) => {
-  const {active, setTrack, setActive, track} = appStore((state: any) => state);
+
+const deleteTrack = async (id: string): Promise<number> => {
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+  const res = await fetch(`${baseUrl}/tracks/${id}`, {
+    method: "DELETE",
+  });
+  return res.json();
+};
+
+export const TrackItem = ({ thisTrack }: Props) => {
+  const { active, setTrack, setActive, track } = appStore(
+    (state: any) => state
+  );
   const router = useRouter();
 
   const play: MouseEventHandler<HTMLButtonElement> | undefined = (e) => {
     e.stopPropagation();
     setTrack(thisTrack);
     setActive(!active);
+  };
+
+  const deleteHandler: MouseEventHandler<HTMLButtonElement> | undefined = (
+    e
+  ) => {
+    e.stopPropagation();
+    if (thisTrack._id) {
+      deleteTrack(String(thisTrack._id)).then((res) => console.log(res));
+    }
   };
 
   return thisTrack ? (
@@ -52,7 +72,7 @@ export const TrackItem = ({thisTrack}: Props) => {
           <div>{thisTrack.name}</div>
           <div>{thisTrack.artist}</div>
         </div>
-        <IconButton onClick={(e) => e.stopPropagation()}>
+        <IconButton onClick={deleteHandler}>
           <Delete />
         </IconButton>
       </div>

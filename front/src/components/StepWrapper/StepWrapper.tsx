@@ -7,11 +7,12 @@ import {
   Button,
   TextField,
 } from "@mui/material";
-import {ChangeEvent, Fragment, useState} from "react";
-import {FileUpload, PicturePreview} from "../FileUpload";
-import {AudioPreview} from "../FileUpload/AudioPreview";
-import {Track} from "@/types/track";
-import {useInput} from "@/hooks/useInput";
+import { ChangeEvent, Fragment, useState } from "react";
+import { FileUpload, PicturePreview } from "../FileUpload";
+import { AudioPreview } from "../FileUpload/AudioPreview";
+import { Track } from "@/types/track";
+import { useInput } from "@/hooks/useInput";
+import { useRouter } from "next/navigation";
 
 const createTrack = async (payload: FormData): Promise<Track> => {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
@@ -24,6 +25,7 @@ const createTrack = async (payload: FormData): Promise<Track> => {
 
 const steps = ["Info", "Cover", "Audio"];
 export const Steps = () => {
+  const router = useRouter();
   const trackName = useInput("");
   const trackArtist = useInput("");
   const lyrics = useInput("");
@@ -44,7 +46,9 @@ export const Steps = () => {
     formData.append("text", lyrics.value);
     formData.append("picture", picture as Blob);
     formData.append("audio", audio as Blob);
-    createTrack(formData);
+    createTrack(formData).then((res) => {
+      router.push(`/tracks/${res._id}`);
+    });
   };
 
   let StepContent = <Fragment></Fragment>;

@@ -1,10 +1,10 @@
-import {TrackHeader} from "@/components/TrackHeader";
-import {TrackItem} from "@/components/TrackItem";
-import {Track} from "@/types/track";
+import { TrackHeader } from "@/components/TrackHeader";
+import { TrackItem } from "@/components/TrackItem";
+import { Track } from "@/types/track";
 
 export const getTracks = async (): Promise<Track[]> => {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
-  const res = await fetch(`${baseUrl}/tracks/`);
+  const res = await fetch(`${baseUrl}/tracks/`, { next: { revalidate: 10 } });
   return res.json();
 };
 export default async function Tracks() {
