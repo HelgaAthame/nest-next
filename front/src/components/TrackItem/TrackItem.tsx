@@ -3,10 +3,15 @@ import { getTracks } from "@/app/tracks/page";
 import { appStore } from "@/store/store";
 import { Track } from "@/types/track";
 import { Pause, PlayArrow, Photo, Delete } from "@mui/icons-material";
-import { IconButton, Divider } from "@mui/material";
+import { IconButton, Divider, Button } from "@mui/material";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { type MouseEventHandler, Fragment } from "react";
+import { type MouseEventHandler, Fragment, useState } from "react";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 
 interface Props {
   thisTrack: Track;
@@ -25,6 +30,7 @@ export const TrackItem = ({ thisTrack }: Props) => {
   const { active, setTrack, setActive, track } = appStore(
     (state: any) => state
   );
+  const [open, setOpen] = useState<boolean>(false);
   const router = useRouter();
 
   const play: MouseEventHandler<HTMLButtonElement> | undefined = (e) => {
@@ -42,8 +48,45 @@ export const TrackItem = ({ thisTrack }: Props) => {
     }
   };
 
+  const handleClickOpen: MouseEventHandler<HTMLButtonElement> | undefined = (
+    e
+  ) => {
+    e.stopPropagation();
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return thisTrack ? (
     <Fragment>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+      >
+        {" "}
+        <DialogTitle id="alert-dialog-title">
+          {"Are you sure you want to delete this track?"}
+        </DialogTitle>
+        <DialogActions>
+          <Button onClick={handleClose} variant="outlined" color="secondary">
+            No
+          </Button>
+          <Button
+            onClick={(e) => {
+              deleteHandler(e);
+              handleClose();
+            }}
+            autoFocus
+            variant="contained"
+            color="secondary"
+          >
+            Yes
+          </Button>
+        </DialogActions>
+      </Dialog>
       <div
         className="flex items-center p-2 gap-2"
         onClick={() => {
@@ -73,7 +116,7 @@ export const TrackItem = ({ thisTrack }: Props) => {
           <div>{thisTrack.name}</div>
           <div>{thisTrack.artist}</div>
         </div>
-        <IconButton onClick={deleteHandler}>
+        <IconButton onClick={handleClickOpen}>
           <Delete />
         </IconButton>
       </div>
