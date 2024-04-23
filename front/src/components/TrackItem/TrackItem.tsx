@@ -17,26 +17,30 @@ export const TrackItem = ({thisTrack}: Props) => {
 
   const play: MouseEventHandler<HTMLButtonElement> | undefined = (e) => {
     e.stopPropagation();
-    setTrack(track);
+    setTrack(thisTrack);
     setActive(!active);
   };
 
-  return track ? (
+  return thisTrack ? (
     <Fragment>
       <div
         className="flex items-center p-2 gap-2"
         onClick={() => {
-          router.push(`/tracks/${track._id}`);
+          router.push(`/tracks/${thisTrack._id}`);
         }}
       >
         <IconButton onClick={play}>
-          {active && thisTrack._id === track._id ? <PlayArrow /> : <Pause />}
+          {active && track && thisTrack._id === track._id ? (
+            <Pause />
+          ) : (
+            <PlayArrow />
+          )}
         </IconButton>
-        {track.picture ? (
+        {thisTrack.picture ? (
           <div className="w-10 h-10 rounded relative shrink-0 overflow-clip">
             <Image
-              alt={track.name}
-              src={`${process.env.NEXT_PUBLIC_BASE_URL}/${track.picture}`}
+              alt={thisTrack.name}
+              src={`${process.env.NEXT_PUBLIC_BASE_URL}/${thisTrack.picture}`}
               objectFit="cover"
               layout="fill"
             />
@@ -45,8 +49,8 @@ export const TrackItem = ({thisTrack}: Props) => {
           <Photo />
         )}
         <div className="grow flex flex-col">
-          <div>{track.name}</div>
-          <div>{track.artist}</div>
+          <div>{thisTrack.name}</div>
+          <div>{thisTrack.artist}</div>
         </div>
         <IconButton onClick={(e) => e.stopPropagation()}>
           <Delete />
