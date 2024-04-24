@@ -12,6 +12,6 @@ export const appStore = create<State>((set) => ({
   track: null,
   setTrack: (newTrack: Track) =>
     set((state: any) => ({ track: { ...state.track, ...newTrack } })),
-  active: true,
+  active: false,
   setActive: (val: boolean) => set((state: any) => ({ active: val })),
 }));

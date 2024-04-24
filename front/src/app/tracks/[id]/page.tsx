@@ -2,6 +2,7 @@ import { Card, Grid, Divider, TextField, Button } from "@mui/material";
 import { Track } from "@/types/track";
 import { TrackHeader } from "@/components/TrackHeader";
 import { CommentItem } from "@/components/CommentItem";
+import { appStore } from "@/store/store";
 
 export const getTrackById = async (id: string): Promise<Track> => {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
@@ -16,15 +17,14 @@ export default async function TrackPage({
 }) {
   const track = await getTrackById(params.id);
   return (
-    <Grid
-      container
-      className="pd bg-cover h-full"
+    <div
+      className="pd bg-cover flex w-full min-h-full"
       style={{
         backgroundImage: `url(${process.env.NEXT_PUBLIC_BASE_URL}/${track.picture})`,
       }}
     >
-      <Card className="pd grow backdrop-blur bg-white/70 flex flex-col gap-4">
-        <div className="flex flex-col gap-4">
+      <div className="pd grow backdrop-blur bg-white/70 flex flex-col gap-4 rounded-md">
+        <div className="flex flex-col gap-4 max-w-full">
           <TrackHeader
             title={track.name}
             button={{
@@ -51,7 +51,7 @@ export default async function TrackPage({
             <CommentItem comment={comment} key={comment.id} />
           ))}
         </div>
-      </Card>
-    </Grid>
+      </div>
+    </div>
   );
 }

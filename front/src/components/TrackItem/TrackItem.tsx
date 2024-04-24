@@ -88,37 +88,44 @@ export const TrackItem = ({ thisTrack }: Props) => {
         </DialogActions>
       </Dialog>
       <div
-        className="flex items-center p-2 gap-2"
+        className="flex sm:items-center p-2 gap-2 flex-col sm:flex-row"
         onClick={() => {
           router.push(`/tracks/${thisTrack._id}`);
         }}
       >
-        <IconButton onClick={play}>
-          {active && track && thisTrack._id === track._id ? (
-            <Pause />
+        <div className="flex gap-2 shrink-0">
+          <IconButton onClick={play}>
+            {active && track && thisTrack._id === track._id ? (
+              <Pause />
+            ) : (
+              <PlayArrow />
+            )}
+          </IconButton>
+          {thisTrack.picture ? (
+            <div className="w-10 h-10 rounded relative shrink-0 overflow-clip">
+              <Image
+                alt={thisTrack.name}
+                src={`${process.env.NEXT_PUBLIC_BASE_URL}/${thisTrack.picture}`}
+                objectFit="cover"
+                layout="fill"
+              />
+            </div>
           ) : (
-            <PlayArrow />
+            <Photo />
           )}
-        </IconButton>
-        {thisTrack.picture ? (
-          <div className="w-10 h-10 rounded relative shrink-0 overflow-clip">
-            <Image
-              alt={thisTrack.name}
-              src={`${process.env.NEXT_PUBLIC_BASE_URL}/${thisTrack.picture}`}
-              objectFit="cover"
-              layout="fill"
-            />
-          </div>
-        ) : (
-          <Photo />
-        )}
-        <div className="grow flex flex-col">
-          <div>{thisTrack.name}</div>
-          <div>{thisTrack.artist}</div>
         </div>
-        <IconButton onClick={handleClickOpen}>
-          <Delete />
-        </IconButton>
+
+        <div className="grow flex flex-col">
+          <div className="line-clamp-3 font-semibold text-xl sm:line-clamp-1">
+            {thisTrack.name}
+          </div>
+          <div className="line-clamp-3 sm:line-clamp-1">{thisTrack.artist}</div>
+        </div>
+        <div className="shrink-0">
+          <IconButton onClick={handleClickOpen}>
+            <Delete />
+          </IconButton>
+        </div>
       </div>
       <Divider className="last:hidden" />
     </Fragment>

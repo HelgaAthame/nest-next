@@ -3,13 +3,162 @@
 @tailwind utilities;
 
 @layer components {
-    .round {
-        @apply transition-colors duration-150 w-8 h-8 p-2 m-0 rounded-full cursor-pointer hover:bg-gray flex items-center justify-center;
+  * {
+    @apply overflow-x-hidden;
+  }
+  .round {
+    @apply transition-colors duration-150 w-8 h-8 p-2 m-0 rounded-full cursor-pointer hover:bg-gray flex items-center justify-center;
+  }
+  .pd {
+    @apply p-4 md:p-6 2xl:p-10 gap-4 md:gap-6 2xl:gap-10 flex;
+  }
+  h1 {
+    @apply text-3xl font-bold text-black truncate;
+  }
+  /********* Range Input Styles *********/
+  /*Range Reset*/
+  input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  /* Removes default focus */
+  input[type="range"]:focus {
+    outline: none;
+  }
+
+  /***** Chrome, Safari, Opera and Edge Chromium styles *****/
+  /* slider track */
+  input[type="range"]::-webkit-slider-runnable-track {
+    background: linear-gradient(
+      0deg,
+      rgba(170, 153, 170, 1) 0%,
+      rgba(204, 193, 204, 1) 35%,
+      rgba(255, 254, 255, 1) 100%
+    );
+    border-radius: 0.5rem;
+    height: 1rem;
+  }
+
+  /* slider thumb */
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Override default look */
+    appearance: none;
+    margin-top: -0.125rem; /* Centers thumb on the track */
+
+    /*custom styles*/
+    background: linear-gradient(
+      180deg,
+      rgba(170, 153, 170, 1) 0%,
+      rgba(204, 193, 204, 1) 35%,
+      rgba(255, 254, 255, 1) 100%
+    );
+    border-radius: 100%;
+    border-width: 0.125rem;
+    border-color: rgba(204, 193, 204, 1);
+    border-style: solid;
+    height: 1.25rem;
+    width: 1.25rem;
+  }
+
+  input[type="range"]:focus::-webkit-slider-thumb {
+    outline: none;
+    background: linear-gradient(
+      180deg,
+      rgba(170, 153, 170, 1) 0%,
+      rgba(204, 193, 204, 1) 35%,
+      rgba(255, 254, 255, 1) 100%
+    );
+    border-radius: 100%;
+    border-width: 0.125rem;
+    border-color: rgba(204, 193, 204, 1);
+    border-style: solid;
+    height: 1.25rem;
+    width: 1.25rem;
+  }
+
+  /******** Firefox styles ********/
+  /* slider track */
+  input[type="range"]::-moz-range-track {
+    background-color: linear-gradient(
+      0deg,
+      rgba(170, 153, 170, 1) 0%,
+      rgba(204, 193, 204, 1) 35%,
+      rgba(255, 254, 255, 1) 100%
+    );
+    border-radius: 0.5rem;
+    height: 1rem;
+  }
+  input[type="range"]::-moz-focus-outer {
+    border: 0;
+    outline: none;
+  }
+  input[type="range"]:focus::-moz-range-thumb {
+    outline: none;
+  }
+  input[type="range"]:focus::-moz-range-track {
+    outline: none;
+  }
+  input[type="range"]::-moz-focus-inner {
+    outline: none;
+  }
+
+  /* slider thumb */
+  input[type="range"]::-moz-range-thumb {
+    outline: none;
+    background: linear-gradient(
+      180deg,
+      rgba(170, 153, 170, 1) 0%,
+      rgba(204, 193, 204, 1) 35%,
+      rgba(255, 254, 255, 1) 100%
+    );
+    border-radius: 100%;
+    border-width: 0.125rem;
+    border-color: rgba(204, 193, 204, 1);
+    border-style: solid;
+    height: 1.25rem;
+    width: 1.25rem;
+  }
+
+  /* input[type="range"]:focus::-moz-range-thumb {
+    border: 1px solid #053a5f;
+    outline: 3px solid #053a5f;
+    outline-offset: 0.125rem;
+  } */
+
+  /* Scrollbar*/
+  @supports (-ms-ime-align: auto) {
+    *::-webkit-scrollbar {
+      -ms-overflow-style: thin;
+      scrollbar-color: gray darkgray/20;
+      scrollbar-width: thin;
     }
-    .pd {
-      @apply p-4 md:p-6 2xl:p-10 gap-4 md:gap-6 2xl:gap-10 flex;
-    }
-    h1 {
-        @apply text-3xl font-bold text-black;
-    }
+  }
+
+  ::-webkit-scrollbar {
+    @apply flex h-1.5 w-1.5 bg-transparent;
+    width: 5px !important;
+    height: 5px !important;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-darkviolet hover:cursor-pointer;
+  }
+  ::-webkit-scrollbar-track {
+    @apply rounded-full bg-graydark;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    cursor: pointer !important;
+  }
+
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    display: none; /* <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+  }
+  ::-webkit-scrollbar-button {
+    display: none;
+  }
 }
