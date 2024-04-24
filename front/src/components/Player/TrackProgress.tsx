@@ -20,7 +20,7 @@ export const TrackProgress = ({
     <div
       className={`${
         time ? "grow" : "w-full sm:min-w-40"
-      } flex gap-3 sm:flex-nowrap shrink-0`}
+      } flex gap-3 sm:flex-nowrap`}
     >
       <input
         type="range"
