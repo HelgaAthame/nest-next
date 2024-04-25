@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.TrackSchema = exports.Track = void 0;
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose = require("mongoose");
+const album_schema_1 = require("../../album/schemas/album.schema");
 let Track = class Track {
 };
 exports.Track = Track;
@@ -43,6 +44,10 @@ __decorate([
     (0, mongoose_1.Prop)({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }] }),
     __metadata("design:type", Array)
 ], Track.prototype, "comments", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ type: mongoose.Schema.Types.ObjectId, ref: 'Album' }),
+    __metadata("design:type", album_schema_1.Album)
+], Track.prototype, "track", void 0);
 exports.Track = Track = __decorate([
     (0, mongoose_1.Schema)()
 ], Track);

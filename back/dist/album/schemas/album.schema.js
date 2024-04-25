@@ -22,15 +22,11 @@ __decorate([
 __decorate([
     (0, mongoose_1.Prop)(),
     __metadata("design:type", String)
-], Album.prototype, "author", void 0);
-__decorate([
-    (0, mongoose_1.Prop)(),
-    __metadata("design:type", String)
 ], Album.prototype, "picture", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Track' }] }),
     __metadata("design:type", Array)
-], Album.prototype, "comments", void 0);
+], Album.prototype, "tracks", void 0);
 exports.Album = Album = __decorate([
     (0, mongoose_1.Schema)()
 ], Album);

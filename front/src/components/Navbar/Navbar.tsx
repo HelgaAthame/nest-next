@@ -7,8 +7,6 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 import { Close, Menu } from '@mui/icons-material';
 import { menuItems } from '@/consts/menuItems';
 import { useRouter } from 'next/navigation';
@@ -29,13 +27,13 @@ export const Navbar = () => {
         {/* </button></div> */}
       
       <List>
-        {menuItems.map(({text,href}, index) => (
+        {menuItems.map(({text,href,icon}, index) => (
           <ListItem key={href} disablePadding onClick={() => {
             router.push(href)
           }}>
             <ListItemButton>
               <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                {icon}
               </ListItemIcon>
               <ListItemText primary={text} />
             </ListItemButton>

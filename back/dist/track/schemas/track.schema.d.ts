@@ -25,6 +25,7 @@
 import { HydratedDocument } from 'mongoose';
 import * as mongoose from 'mongoose';
 import { Comment } from './comment.schema';
+import { Album } from 'src/album/schemas/album.schema';
 export type TrackDocument = HydratedDocument<Track>;
 export declare class Track {
     name: string;
@@ -34,6 +35,7 @@ export declare class Track {
     picture: string;
     audio: string;
     comments: Comment[];
+    track: Album;
 }
 export declare const TrackSchema: mongoose.Schema<Track, mongoose.Model<Track, any, any, any, mongoose.Document<unknown, any, Track> & Track & {
     _id: mongoose.Types.ObjectId;

@@ -4,7 +4,9 @@ import { Track } from "@/types/track";
 
 export const getTracks = async (): Promise<Track[]> => {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
-  const res = await fetch(`${baseUrl}/tracks/`, { cache: "no-store" });
+  const res = await fetch(`${baseUrl}/tracks/`, {
+    cache: "no-store",
+  });
   return res.json();
 };
 export default async function Tracks() {

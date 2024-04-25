@@ -1,5 +1,4 @@
 "use client";
-import { getTracks } from "@/app/tracks/page";
 import { appStore } from "@/store/store";
 import { Track } from "@/types/track";
 import { Pause, PlayArrow, Photo, Delete } from "@mui/icons-material";
@@ -9,20 +8,20 @@ import { useRouter } from "next/navigation";
 import { type MouseEventHandler, Fragment, useState } from "react";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import { toast } from "react-toastify";
+import { revalidatePath } from "next/cache";
 
 interface Props {
   thisTrack: Track;
   active?: boolean;
 }
-
 const deleteTrack = async (id: string): Promise<number> => {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
   const res = await fetch(`${baseUrl}/tracks/${id}`, {
     method: "DELETE",
   });
+  console.log(res);
   return res.json();
 };
 
@@ -44,7 +43,16 @@ export const TrackItem = ({ thisTrack }: Props) => {
   ) => {
     e.stopPropagation();
     if (thisTrack._id) {
-      deleteTrack(String(thisTrack._id)).then((res) => getTracks());
+      deleteTrack(String(thisTrack._id))
+        .then((res) => {
+          revalidatePath("/tracks");
+        })
+        .catch((e) => {
+          toast.error(e.message);
+        })
+        .finally(() => {
+          window.location.reload();
+        });
     }
   };
 

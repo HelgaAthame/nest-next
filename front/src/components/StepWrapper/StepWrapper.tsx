@@ -27,9 +27,7 @@ const createTrack = async (payload: FormData): Promise<Track> => {
 const steps = ["Info", "Cover", "Audio"];
 export const Steps = () => {
   const router = useRouter();
-  const { setTrack } = appStore(
-    (state: any) => state
-  );
+  const { setTrack } = appStore((state: any) => state);
   const trackName = useInput("");
   const trackArtist = useInput("");
   const lyrics = useInput("");

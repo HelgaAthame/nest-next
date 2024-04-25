@@ -28,9 +28,8 @@ import { Track } from 'src/track/schemas/track.schema';
 export type AlbumDocument = HydratedDocument<Album>;
 export declare class Album {
     name: string;
-    author: string;
     picture: string;
-    comments: Track[];
+    tracks: Track[];
 }
 export declare const AlbumSchema: mongoose.Schema<Album, mongoose.Model<Album, any, any, any, mongoose.Document<unknown, any, Album> & Album & {
     _id: mongoose.Types.ObjectId;
