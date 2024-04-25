@@ -11,13 +11,10 @@ export class Album {
   name: string;
 
   @Prop()
-  author: string;
-
-  @Prop()
   picture: string;
 
   @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Track' }] })
-  comments: Track[];
+  tracks: Track[];
 }
 
 export const AlbumSchema = SchemaFactory.createForClass(Album);
