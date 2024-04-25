@@ -59,6 +59,17 @@ let AlbumService = class AlbumService {
         await album.save();
         return track;
     }
+    async delete(id) {
+        const album = await this.albumModel.findById(id);
+        if (!album)
+            throw new common_1.NotFoundException({ message: 'Album not found' });
+        const trackIds = album.tracks;
+        await this.albumModel.findByIdAndDelete(id);
+        trackIds.forEach((trackId) => {
+            this.trackModel.findByIdAndDelete(trackId);
+        });
+        return `Album ${album.id} was successfully deleted!`;
+    }
 };
 exports.AlbumService = AlbumService;
 exports.AlbumService = AlbumService = __decorate([

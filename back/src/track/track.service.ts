@@ -46,10 +46,10 @@ export class TrackService {
       .limit(Number(count));
     return tracks;
   }
-  async delete(id: ObjectId): Promise<ObjectId> {
+  async delete(id: ObjectId): Promise<string> {
     const track = await this.trackModel.findByIdAndDelete(id);
     if (!track) throw new NotFoundException({ message: 'Track not found' });
-    return track.id;
+    return `Album ${track.id} was successfully deleted!`;
   }
 
   async addComment(dto: CreateCommentDto): Promise<Comment> {

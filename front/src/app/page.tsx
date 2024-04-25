@@ -15,20 +15,20 @@ export default function Home() {
         </div>
         <div className="flex pd">
           <Button
-            href="/tracks"
+            href="/albums"
             variant="contained"
             color="secondary"
             size="large"
           >
-            Tracklist
+            Albums
           </Button>
           <Button
-            href="/tracks/create"
+            href="/albums/create"
             variant="outlined"
             color="secondary"
             size="large"
           >
-            Create track
+            New album
           </Button>
         </div>
       </div>

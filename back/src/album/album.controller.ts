@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Post,
@@ -44,5 +45,10 @@ export class AlbumController {
   addTrack(@UploadedFiles() files, @Body() dto: CreateTrackDto) {
     const { picture, audio } = files;
     return this.albumService.addTrack(dto, picture[0], audio[0]);
+  }
+
+  @Delete(':id')
+  delete(@Param('id') id: ObjectId) {
+    return this.albumService.delete(id);
   }
 }

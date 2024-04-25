@@ -36,6 +36,9 @@ let AlbumController = class AlbumController {
         const { picture, audio } = files;
         return this.albumService.addTrack(dto, picture[0], audio[0]);
     }
+    delete(id) {
+        return this.albumService.delete(id);
+    }
 };
 exports.AlbumController = AlbumController;
 __decorate([
@@ -74,6 +77,13 @@ __decorate([
     __metadata("design:paramtypes", [Object, create_track_dto_1.CreateTrackDto]),
     __metadata("design:returntype", void 0)
 ], AlbumController.prototype, "addTrack", null);
+__decorate([
+    (0, common_1.Delete)(':id'),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], AlbumController.prototype, "delete", null);
 exports.AlbumController = AlbumController = __decorate([
     (0, common_1.Controller)('/albums'),
     __metadata("design:paramtypes", [album_service_1.AlbumService])

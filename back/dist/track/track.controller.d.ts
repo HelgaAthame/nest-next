@@ -30,7 +30,7 @@ export declare class TrackController {
     constructor(trackService: TrackService);
     getOne(id: ObjectId): Promise<import("./schemas/track.schema").Track>;
     getAll(count: number, offset: number): Promise<import("./schemas/track.schema").Track[]>;
-    delete(id: ObjectId): Promise<import("mongoose").Schema.Types.ObjectId>;
+    delete(id: ObjectId): Promise<string>;
     addComment(dto: CreateCommentDto): Promise<import("./schemas/comment.schema").Comment>;
     listen(id: ObjectId): Promise<void>;
 }

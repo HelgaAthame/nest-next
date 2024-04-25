@@ -33,4 +33,5 @@ export declare class AlbumController {
     getOne(id: ObjectId): Promise<import("./schemas/album.schema").Album>;
     create(files: any, dto: CreateAlbumDto): Promise<import("./schemas/album.schema").Album>;
     addTrack(files: any, dto: CreateTrackDto): Promise<import("../track/schemas/track.schema").Track>;
+    delete(id: ObjectId): Promise<string>;
 }

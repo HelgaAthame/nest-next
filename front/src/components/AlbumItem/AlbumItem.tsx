@@ -44,7 +44,7 @@ export const AlbumItem = ({ album }: Props) => {
     if (album._id) {
       deleteAlbum(String(album._id))
         .then((res) => {
-          revalidatePath("/tracks");
+          revalidatePath(`/album/${album._id}`);
         })
         .catch((e) => {
           toast.error(e.message);

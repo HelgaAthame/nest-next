@@ -38,4 +38,5 @@ export declare class AlbumService {
     getOne(id: ObjectId): Promise<Album>;
     create(dto: CreateAlbumDto, picture: Express.Multer.File): Promise<Album>;
     addTrack(dto: CreateTrackDto, picture: Express.Multer.File, audio: Express.Multer.File): Promise<Track>;
+    delete(id: ObjectId): Promise<string>;
 }

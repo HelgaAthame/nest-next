@@ -37,7 +37,7 @@ export declare class TrackService {
     create(dto: CreateTrackDto, picture: Express.Multer.File, audio: Express.Multer.File): Promise<Track>;
     getOne(id: ObjectId): Promise<Track>;
     getAll(count?: number, offset?: number): Promise<Track[]>;
-    delete(id: ObjectId): Promise<ObjectId>;
+    delete(id: ObjectId): Promise<string>;
     addComment(dto: CreateCommentDto): Promise<Comment>;
     listen(id: ObjectId): Promise<void>;
     search(query?: string): Promise<Track[]>;
