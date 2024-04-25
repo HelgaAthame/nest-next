@@ -18,7 +18,7 @@ import { StepWrapper } from "./StepWrapper";
 
 const createTrack = async (payload: FormData): Promise<Track> => {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
-  const res = await fetch(`${baseUrl}/tracks`, {
+  const res = await fetch(`${baseUrl}/albums/add-track`, {
     method: "POST",
     body: payload,
   });
@@ -26,7 +26,11 @@ const createTrack = async (payload: FormData): Promise<Track> => {
 };
 
 const steps = ["Info", "Cover", "Audio"];
-export const CreateTrackSteps = () => {
+
+interface Props {
+  albumId: string;
+}
+export const CreateTrackSteps = ({ albumId }: Props) => {
   const router = useRouter();
   const { setTrack } = appStore((state: any) => state);
   const trackName = useInput("");
@@ -35,12 +39,6 @@ export const CreateTrackSteps = () => {
   const [activeStep, setActiveStep] = useState(0);
   const [picture, setPicture] = useState<File | null>(null);
   const [audio, setAudio] = useState<File | null>(null);
-  const next = () => {
-    setActiveStep((prev) => prev + 1);
-  };
-  const back = () => {
-    setActiveStep((prev) => prev - 1);
-  };
 
   const createTrackHahdler = () => {
     const formData = new FormData();
@@ -49,9 +47,10 @@ export const CreateTrackSteps = () => {
     formData.append("text", lyrics.value);
     formData.append("picture", picture as Blob);
     formData.append("audio", audio as Blob);
+    formData.append("albumid", albumId);
     createTrack(formData).then((res) => {
       setTrack(res);
-      router.push(`/tracks/${res._id}`);
+      router.push(`/albums/${albumId}/${res._id}`);
     });
   };
 
@@ -121,6 +120,6 @@ export const CreateTrackSteps = () => {
       steps={steps}
     >
       {StepContent}
-    </StepWrapper>  
+    </StepWrapper>
   );
 };

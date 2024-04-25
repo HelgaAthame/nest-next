@@ -19,17 +19,17 @@ import { FileFieldsInterceptor } from '@nestjs/platform-express';
 export class TrackController {
   constructor(private trackService: TrackService) {}
 
-  @Post()
-  @UseInterceptors(
-    FileFieldsInterceptor([
-      { name: 'picture', maxCount: 1 },
-      { name: 'audio', maxCount: 1 },
-    ]),
-  )
-  create(@UploadedFiles() files, @Body() dto: CreateTrackDto) {
-    const { picture, audio } = files;
-    return this.trackService.create(dto, picture[0], audio[0]);
-  }
+  // @Post()
+  // @UseInterceptors(
+  //   FileFieldsInterceptor([
+  //     { name: 'picture', maxCount: 1 },
+  //     { name: 'audio', maxCount: 1 },
+  //   ]),
+  // )
+  // create(@UploadedFiles() files, @Body() dto: CreateTrackDto) {
+  //   const { picture, audio } = files;
+  //   return this.trackService.create(dto, picture[0], audio[0]);
+  // }
 
   @Get(':id')
   getOne(@Param('id') id: ObjectId) {
@@ -40,10 +40,10 @@ export class TrackController {
   getAll(@Query('count') count: number, @Query('offset') offset: number) {
     return this.trackService.getAll(count, offset);
   }
-  @Get('search')
-  search(@Query('query') query: string) {
-    return this.trackService.search(query);
-  }
+  // @Get('search')
+  // search(@Query('query') query: string) {
+  //   return this.trackService.search(query);
+  // }
 
   @Delete(':id')
   delete(@Param('id') id: ObjectId) {

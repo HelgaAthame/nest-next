@@ -18,8 +18,10 @@ const mongoose_1 = require("@nestjs/mongoose");
 const album_schema_1 = require("./schemas/album.schema");
 const mongoose_2 = require("mongoose");
 const file_service_1 = require("../file/file.service");
+const track_schema_1 = require("../track/schemas/track.schema");
 let AlbumService = class AlbumService {
-    constructor(albumModel, fileService) {
+    constructor(trackModel, albumModel, fileService) {
+        this.trackModel = trackModel;
         this.albumModel = albumModel;
         this.fileService = fileService;
     }
@@ -30,6 +32,10 @@ let AlbumService = class AlbumService {
             .limit(Number(count));
         return albums;
     }
+    async getOne(id) {
+        const album = await this.albumModel.findById(id).populate('tracks');
+        return album;
+    }
     async create(dto, picture) {
         const picaturePath = await this.fileService.createFile(file_service_1.FileType.IMAGE, picture);
         const album = await this.albumModel.create({
@@ -38,12 +44,29 @@ let AlbumService = class AlbumService {
         });
         return album;
     }
+    async addTrack(dto, picture, audio) {
+        const audioPath = await this.fileService.createFile(file_service_1.FileType.AUDIO, audio);
+        const picaturePath = await this.fileService.createFile(file_service_1.FileType.IMAGE, picture);
+        console.log(dto);
+        const album = await this.albumModel.findById(dto.albumid);
+        const track = await this.trackModel.create({
+            ...dto,
+            listens: 0,
+            picture: picaturePath,
+            audio: audioPath,
+        });
+        album.tracks.push(track.id);
+        await album.save();
+        return track;
+    }
 };
 exports.AlbumService = AlbumService;
 exports.AlbumService = AlbumService = __decorate([
     (0, common_1.Injectable)(),
-    __param(0, (0, mongoose_1.InjectModel)(album_schema_1.Album.name)),
+    __param(0, (0, mongoose_1.InjectModel)(track_schema_1.Track.name)),
+    __param(1, (0, mongoose_1.InjectModel)(album_schema_1.Album.name)),
     __metadata("design:paramtypes", [mongoose_2.Model,
+        mongoose_2.Model,
         file_service_1.FileService])
 ], AlbumService);
 //# sourceMappingURL=album.service.js.map

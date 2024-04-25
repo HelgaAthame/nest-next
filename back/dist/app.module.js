@@ -8,7 +8,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
-const track_module_1 = require("./track/track.module");
 const mongoose_1 = require("@nestjs/mongoose");
 const file_module_1 = require("./file/file.module");
 const path_1 = require("path");
@@ -24,7 +23,6 @@ exports.AppModule = AppModule = __decorate([
                 rootPath: (0, path_1.resolve)(__dirname, 'static'),
             }),
             mongoose_1.MongooseModule.forRoot('mongodb+srv://athame:666@athame.vwrzwf2.mongodb.net/'),
-            track_module_1.TrackModule,
             file_module_1.FileModule,
             album_module_1.AlbumModule,
         ],

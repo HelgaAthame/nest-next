@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common';
-import { TrackModule } from './track/track.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { FileModule } from './file/file.module';
 import { resolve } from 'path';
@@ -14,7 +13,6 @@ import { AlbumModule } from './album/album.module';
     MongooseModule.forRoot(
       'mongodb+srv://athame:666@athame.vwrzwf2.mongodb.net/',
     ),
-    TrackModule,
     FileModule,
     AlbumModule,
   ],

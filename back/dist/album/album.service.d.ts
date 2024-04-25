@@ -24,13 +24,18 @@
 /// <reference types="mongoose/types/virtuals" />
 /// <reference types="mongoose/types/inferschematype" />
 import { Album } from './schemas/album.schema';
-import { Model } from 'mongoose';
+import { Model, ObjectId } from 'mongoose';
 import { FileService } from 'src/file/file.service';
+import { Track } from 'src/track/schemas/track.schema';
 import { CreateAlbumDto } from './dto/create-album.dto';
+import { CreateTrackDto } from 'src/track/dto/create-track.dto';
 export declare class AlbumService {
+    private trackModel;
     private albumModel;
     private fileService;
-    constructor(albumModel: Model<Album>, fileService: FileService);
+    constructor(trackModel: Model<Track>, albumModel: Model<Album>, fileService: FileService);
     getAll(count?: number, offset?: number): Promise<Album[]>;
+    getOne(id: ObjectId): Promise<Album>;
     create(dto: CreateAlbumDto, picture: Express.Multer.File): Promise<Album>;
+    addTrack(dto: CreateTrackDto, picture: Express.Multer.File, audio: Express.Multer.File): Promise<Track>;
 }

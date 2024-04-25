@@ -17,6 +17,7 @@ const common_1 = require("@nestjs/common");
 const album_service_1 = require("./album.service");
 const platform_express_1 = require("@nestjs/platform-express");
 const create_album_dto_1 = require("./dto/create-album.dto");
+const create_track_dto_1 = require("../track/dto/create-track.dto");
 let AlbumController = class AlbumController {
     constructor(albumService) {
         this.albumService = albumService;
@@ -24,9 +25,16 @@ let AlbumController = class AlbumController {
     getAll(count, offset) {
         return this.albumService.getAll(count, offset);
     }
+    getOne(id) {
+        return this.albumService.getOne(id);
+    }
     create(files, dto) {
         const { picture } = files;
         return this.albumService.create(dto, picture[0]);
+    }
+    addTrack(files, dto) {
+        const { picture, audio } = files;
+        return this.albumService.addTrack(dto, picture[0], audio[0]);
     }
 };
 exports.AlbumController = AlbumController;
@@ -39,6 +47,13 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], AlbumController.prototype, "getAll", null);
 __decorate([
+    (0, common_1.Get)(':id'),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], AlbumController.prototype, "getOne", null);
+__decorate([
     (0, common_1.Post)(),
     (0, common_1.UseInterceptors)((0, platform_express_1.FileFieldsInterceptor)([{ name: 'picture', maxCount: 1 }])),
     __param(0, (0, common_1.UploadedFiles)()),
@@ -47,6 +62,18 @@ __decorate([
     __metadata("design:paramtypes", [Object, create_album_dto_1.CreateAlbumDto]),
     __metadata("design:returntype", void 0)
 ], AlbumController.prototype, "create", null);
+__decorate([
+    (0, common_1.Post)('/add-track'),
+    (0, common_1.UseInterceptors)((0, platform_express_1.FileFieldsInterceptor)([
+        { name: 'picture', maxCount: 1 },
+        { name: 'audio', maxCount: 1 },
+    ])),
+    __param(0, (0, common_1.UploadedFiles)()),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, create_track_dto_1.CreateTrackDto]),
+    __metadata("design:returntype", void 0)
+], AlbumController.prototype, "addTrack", null);
 exports.AlbumController = AlbumController = __decorate([
     (0, common_1.Controller)('/albums'),
     __metadata("design:paramtypes", [album_service_1.AlbumService])

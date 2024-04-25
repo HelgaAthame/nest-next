@@ -16,10 +16,12 @@ export default async function Tracks() {
       <div className="pd grow backdrop-blur bg-white/50 flex flex-col gap-4 rounded-md">
         <TrackHeader
           title="Track list"
-          button={{
-            title: "Upload",
-            link: "/tracks/create",
-          }}
+          buttons={[
+            {
+              title: "Upload",
+              link: "/tracks/create",
+            },
+          ]}
         />
         <div className="flex flex-col">
           {tracks.map((track) => (

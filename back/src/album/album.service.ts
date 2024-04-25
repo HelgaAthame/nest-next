@@ -1,14 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Album } from './schemas/album.schema';
-import { Model } from 'mongoose';
+import { Model, ObjectId } from 'mongoose';
 import { FileService, FileType } from 'src/file/file.service';
 import { Track } from 'src/track/schemas/track.schema';
 import { CreateAlbumDto } from './dto/create-album.dto';
+import { CreateTrackDto } from 'src/track/dto/create-track.dto';
+import { TrackService } from '@/track/track.service';
 
 @Injectable()
 export class AlbumService {
   constructor(
+    @InjectModel(Track.name) private trackModel: Model<Track>,
     @InjectModel(Album.name) private albumModel: Model<Album>,
     private fileService: FileService,
   ) {}
@@ -19,6 +22,11 @@ export class AlbumService {
       .skip(Number(offset))
       .limit(Number(count));
     return albums;
+  }
+
+  async getOne(id: ObjectId): Promise<Album> {
+    const album = await this.albumModel.findById(id).populate('tracks');
+    return album;
   }
 
   async create(
@@ -34,5 +42,28 @@ export class AlbumService {
       picture: picaturePath,
     });
     return album;
+  }
+
+  async addTrack(
+    dto: CreateTrackDto,
+    picture: Express.Multer.File,
+    audio: Express.Multer.File,
+  ): Promise<Track> {
+    const audioPath = await this.fileService.createFile(FileType.AUDIO, audio);
+    const picaturePath = await this.fileService.createFile(
+      FileType.IMAGE,
+      picture,
+    );
+    console.log(dto);
+    const album = await this.albumModel.findById(dto.albumid);
+    const track = await this.trackModel.create({
+      ...dto,
+      listens: 0,
+      picture: picaturePath,
+      audio: audioPath,
+    });
+    album.tracks.push(track.id);
+    await album.save();
+    return track;
   }
 }

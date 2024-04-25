@@ -13,16 +13,20 @@ const album_schema_1 = require("./schemas/album.schema");
 const file_service_1 = require("../file/file.service");
 const album_service_1 = require("./album.service");
 const album_controller_1 = require("./album.controller");
+const track_schema_1 = require("../track/schemas/track.schema");
+const track_module_1 = require("../track/track.module");
 let AlbumModule = class AlbumModule {
 };
 exports.AlbumModule = AlbumModule;
 exports.AlbumModule = AlbumModule = __decorate([
     (0, common_1.Module)({
         imports: [
-            mongoose_1.MongooseModule.forFeature([{ name: album_schema_1.Album.name, schema: album_schema_1.AlbumSchema }])
+            track_module_1.TrackModule,
+            mongoose_1.MongooseModule.forFeature([{ name: album_schema_1.Album.name, schema: album_schema_1.AlbumSchema }]),
+            mongoose_1.MongooseModule.forFeature([{ name: track_schema_1.Track.name, schema: track_schema_1.TrackSchema }]),
         ],
         controllers: [album_controller_1.AlbumController],
-        providers: [album_service_1.AlbumService, file_service_1.FileService]
+        providers: [album_service_1.AlbumService, file_service_1.FileService],
     })
 ], AlbumModule);
 //# sourceMappingURL=album.module.js.map

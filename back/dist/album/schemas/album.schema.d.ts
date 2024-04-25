@@ -28,6 +28,7 @@ import { Track } from 'src/track/schemas/track.schema';
 export type AlbumDocument = HydratedDocument<Album>;
 export declare class Album {
     name: string;
+    artist: string;
     picture: string;
     tracks: Track[];
 }

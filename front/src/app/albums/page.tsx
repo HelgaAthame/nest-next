@@ -16,10 +16,12 @@ export default async function Albums() {
       <div className="pd grow backdrop-blur bg-white/50 flex flex-col gap-4 rounded-md">
         <TrackHeader
           title="Albums"
-          button={{
-            title: "Upload",
-            link: "/albums/create",
-          }}
+          buttons={[
+            {
+              title: "New Album",
+              link: "/albums/create",
+            },
+          ]}
         />
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid:cols-3 lg:grid-cols-4 xl:grid-cols-5">
           {albums.map((album) => (
