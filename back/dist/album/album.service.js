@@ -18,11 +18,9 @@ const mongoose_1 = require("@nestjs/mongoose");
 const album_schema_1 = require("./schemas/album.schema");
 const mongoose_2 = require("mongoose");
 const file_service_1 = require("../file/file.service");
-const track_schema_1 = require("../track/schemas/track.schema");
 let AlbumService = class AlbumService {
-    constructor(albumModel, trackModel, fileService) {
+    constructor(albumModel, fileService) {
         this.albumModel = albumModel;
-        this.trackModel = trackModel;
         this.fileService = fileService;
     }
     async getAll(count = 10, offset = 0) {
@@ -45,9 +43,7 @@ exports.AlbumService = AlbumService;
 exports.AlbumService = AlbumService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, mongoose_1.InjectModel)(album_schema_1.Album.name)),
-    __param(1, (0, mongoose_1.InjectModel)(track_schema_1.Track.name)),
     __metadata("design:paramtypes", [mongoose_2.Model,
-        mongoose_2.Model,
         file_service_1.FileService])
 ], AlbumService);
 //# sourceMappingURL=album.service.js.map

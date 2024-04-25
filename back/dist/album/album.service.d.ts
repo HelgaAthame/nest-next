@@ -26,13 +26,11 @@
 import { Album } from './schemas/album.schema';
 import { Model } from 'mongoose';
 import { FileService } from 'src/file/file.service';
-import { Track } from 'src/track/schemas/track.schema';
 import { CreateAlbumDto } from './dto/create-album.dto';
 export declare class AlbumService {
     private albumModel;
-    private trackModel;
     private fileService;
-    constructor(albumModel: Model<Album>, trackModel: Model<Track>, fileService: FileService);
+    constructor(albumModel: Model<Album>, fileService: FileService);
     getAll(count?: number, offset?: number): Promise<Album[]>;
     create(dto: CreateAlbumDto, picture: Express.Multer.File): Promise<Album>;
 }

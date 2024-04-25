@@ -13,6 +13,7 @@ const mongoose_1 = require("@nestjs/mongoose");
 const file_module_1 = require("./file/file.module");
 const path_1 = require("path");
 const serve_static_1 = require("@nestjs/serve-static");
+const album_module_1 = require("./album/album.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -25,6 +26,7 @@ exports.AppModule = AppModule = __decorate([
             mongoose_1.MongooseModule.forRoot('mongodb+srv://athame:666@athame.vwrzwf2.mongodb.net/'),
             track_module_1.TrackModule,
             file_module_1.FileModule,
+            album_module_1.AlbumModule,
         ],
     })
 ], AppModule);

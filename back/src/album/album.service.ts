@@ -10,7 +10,6 @@ import { CreateAlbumDto } from './dto/create-album.dto';
 export class AlbumService {
   constructor(
     @InjectModel(Album.name) private albumModel: Model<Album>,
-    @InjectModel(Track.name) private trackModel: Model<Track>,
     private fileService: FileService,
   ) {}
 

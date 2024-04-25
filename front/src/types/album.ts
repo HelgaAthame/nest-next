@@ -4,6 +4,6 @@ export interface Album {
   _id?: string;
   name: string;
   artist: string;
-  picature: string;
+  picture: string;
   tracks: Track[];
 }
