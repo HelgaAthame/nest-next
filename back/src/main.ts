@@ -8,7 +8,7 @@ const start = async () => {
     const app = await NestFactory.create(AppModule);
     app.useGlobalFilters(new HttpExceptionFilter());
     app.enableCors();
-    await app.listen(PORT, () => {
+    await app.listen(PORT, '0.0.0.0', () => {
       console.log(`Server listens on PORT=${PORT}`);
     });
   } catch (error) {
