@@ -25,19 +25,10 @@ let TrackService = class TrackService {
         this.commentModel = commentModel;
         this.fileService = fileService;
     }
-    async create(dto, picture, audio) {
-        const audioPath = await this.fileService.createFile(file_service_1.FileType.AUDIO, audio);
-        const picaturePath = await this.fileService.createFile(file_service_1.FileType.IMAGE, picture);
-        const track = await this.trackModel.create({
-            ...dto,
-            listens: 0,
-            picture: picaturePath,
-            audio: audioPath,
-        });
-        return track;
-    }
     async getOne(id) {
         const track = await this.trackModel.findById(id).populate('comments');
+        if (!track)
+            throw new common_1.NotFoundException({ message: 'Track not found' });
         return track;
     }
     async getAll(count = 10, offset = 0) {
@@ -45,6 +36,8 @@ let TrackService = class TrackService {
             .find()
             .skip(Number(offset))
             .limit(Number(count));
+        if (!tracks)
+            throw new common_1.NotFoundException({ message: 'Tracks not found' });
         return tracks;
     }
     async delete(id) {
@@ -55,6 +48,8 @@ let TrackService = class TrackService {
     }
     async addComment(dto) {
         const track = await this.trackModel.findById(dto.trackId);
+        if (!track)
+            throw new common_1.NotFoundException({ message: 'Track not found' });
         const comment = await this.commentModel.create({ ...dto });
         track.comments.push(comment.id);
         await track.save();

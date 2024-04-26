@@ -21,11 +21,13 @@ export class AlbumService {
       .find()
       .skip(Number(offset))
       .limit(Number(count));
+    if (!albums) throw new NotFoundException({ message: 'Albums not found' });
     return albums;
   }
 
   async getOne(id: ObjectId): Promise<Album> {
     const album = await this.albumModel.findById(id).populate('tracks');
+    if (!album) throw new NotFoundException({ message: 'Album not found' });
     return album;
   }
 
@@ -33,14 +35,15 @@ export class AlbumService {
     dto: CreateAlbumDto,
     picture: Express.Multer.File,
   ): Promise<Album> {
-    const picaturePath = await this.fileService.createFile(
+    const picturePath = await this.fileService.createFile(
       FileType.IMAGE,
       picture,
     );
     const album = await this.albumModel.create({
       ...dto,
-      picture: picaturePath,
+      picture: picturePath,
     });
+    if (!album) throw new NotFoundException({ message: 'Album not found' }); //todo create exception
     return album;
   }
 
@@ -50,18 +53,20 @@ export class AlbumService {
     audio: Express.Multer.File,
   ): Promise<Track> {
     const audioPath = await this.fileService.createFile(FileType.AUDIO, audio);
-    const picaturePath = await this.fileService.createFile(
+    const picturePath = await this.fileService.createFile(
       FileType.IMAGE,
       picture,
     );
     console.log(dto);
     const album = await this.albumModel.findById(dto.albumid);
+    if (!album) throw new NotFoundException({ message: 'Album not found' });
     const track = await this.trackModel.create({
       ...dto,
       listens: 0,
-      picture: picaturePath,
+      picture: picturePath,
       audio: audioPath,
     });
+    if (!track) throw new NotFoundException({ message: 'Track not found' }); //todo create exception
     album.tracks.push(track.id);
     await album.save();
     return track;

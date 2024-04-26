@@ -30,31 +30,41 @@ let AlbumService = class AlbumService {
             .find()
             .skip(Number(offset))
             .limit(Number(count));
+        if (!albums)
+            throw new common_1.NotFoundException({ message: 'Albums not found' });
         return albums;
     }
     async getOne(id) {
         const album = await this.albumModel.findById(id).populate('tracks');
+        if (!album)
+            throw new common_1.NotFoundException({ message: 'Album not found' });
         return album;
     }
     async create(dto, picture) {
-        const picaturePath = await this.fileService.createFile(file_service_1.FileType.IMAGE, picture);
+        const picturePath = await this.fileService.createFile(file_service_1.FileType.IMAGE, picture);
         const album = await this.albumModel.create({
             ...dto,
-            picture: picaturePath,
+            picture: picturePath,
         });
+        if (!album)
+            throw new common_1.NotFoundException({ message: 'Album not found' });
         return album;
     }
     async addTrack(dto, picture, audio) {
         const audioPath = await this.fileService.createFile(file_service_1.FileType.AUDIO, audio);
-        const picaturePath = await this.fileService.createFile(file_service_1.FileType.IMAGE, picture);
+        const picturePath = await this.fileService.createFile(file_service_1.FileType.IMAGE, picture);
         console.log(dto);
         const album = await this.albumModel.findById(dto.albumid);
+        if (!album)
+            throw new common_1.NotFoundException({ message: 'Album not found' });
         const track = await this.trackModel.create({
             ...dto,
             listens: 0,
-            picture: picaturePath,
+            picture: picturePath,
             audio: audioPath,
         });
+        if (!track)
+            throw new common_1.NotFoundException({ message: 'Track not found' });
         album.tracks.push(track.id);
         await album.save();
         return track;

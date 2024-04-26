@@ -1,6 +1,6 @@
-import { Navbar } from "@/components/Navbar";
-import { Button } from "@mui/material";
-import { Fragment } from "react";
+import {Navbar} from "@/components/Navbar";
+import {Button} from "@mui/material";
+import {Fragment} from "react";
 
 export default function Home() {
   return (
@@ -10,10 +10,10 @@ export default function Home() {
           <h1>Music Library</h1>
           <h3>
             Music library for storing, changing, listening to your favorite
-            tracks. Developed by Olga Khmaruk
+            tracks. Developed by Olga Khmaruk //todo stack
           </h3>
         </div>
-        <div className="flex pd">
+        <div className="flex pd flex-col sm:flex-row">
           <Button
             href="/albums"
             variant="contained"

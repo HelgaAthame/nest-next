@@ -1,4 +1,3 @@
-/// <reference types="multer" />
 /// <reference types="mongoose/types/aggregate" />
 /// <reference types="mongoose/types/callback" />
 /// <reference types="mongoose/types/collection" />
@@ -26,7 +25,6 @@
 import { Model, ObjectId } from 'mongoose';
 import { Track } from './schemas/track.schema';
 import { Comment } from './schemas/comment.schema';
-import { CreateTrackDto } from './dto/create-track.dto';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { FileService } from 'src/file/file.service';
 export declare class TrackService {
@@ -34,7 +32,6 @@ export declare class TrackService {
     private commentModel;
     private fileService;
     constructor(trackModel: Model<Track>, commentModel: Model<Comment>, fileService: FileService);
-    create(dto: CreateTrackDto, picture: Express.Multer.File, audio: Express.Multer.File): Promise<Track>;
     getOne(id: ObjectId): Promise<Track>;
     getAll(count?: number, offset?: number): Promise<Track[]>;
     delete(id: ObjectId): Promise<string>;

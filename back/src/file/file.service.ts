@@ -24,6 +24,7 @@ export class FileService {
       return type + '/' + fileName;
     } catch (e) {
       throw new HttpException(e.message, HttpStatus.INTERNAL_SERVER_ERROR);
+      //todo file was not created exception
     }
   }
 

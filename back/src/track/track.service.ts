@@ -15,27 +15,28 @@ export class TrackService {
     private fileService: FileService,
   ) {}
 
-  async create(
-    dto: CreateTrackDto,
-    picture: Express.Multer.File,
-    audio: Express.Multer.File,
-  ): Promise<Track> {
-    const audioPath = await this.fileService.createFile(FileType.AUDIO, audio);
-    const picaturePath = await this.fileService.createFile(
-      FileType.IMAGE,
-      picture,
-    );
-    const track = await this.trackModel.create({
-      ...dto,
-      listens: 0,
-      picture: picaturePath,
-      audio: audioPath,
-    });
-    return track;
-  }
+  // async create(
+  //   dto: CreateTrackDto,
+  //   picture: Express.Multer.File,
+  //   audio: Express.Multer.File,
+  // ): Promise<Track> {
+  //   const audioPath = await this.fileService.createFile(FileType.AUDIO, audio);
+  //   const picaturePath = await this.fileService.createFile(
+  //     FileType.IMAGE,
+  //     picture,
+  //   );
+  //   const track = await this.trackModel.create({
+  //     ...dto,
+  //     listens: 0,
+  //     picture: picaturePath,
+  //     audio: audioPath,
+  //   });
+  //   return track;
+  // }
 
   async getOne(id: ObjectId): Promise<Track> {
     const track = await this.trackModel.findById(id).populate('comments');
+    if (!track) throw new NotFoundException({ message: 'Track not found' });
     return track;
   }
 
@@ -44,6 +45,7 @@ export class TrackService {
       .find()
       .skip(Number(offset))
       .limit(Number(count));
+    if (!tracks) throw new NotFoundException({ message: 'Tracks not found' });
     return tracks;
   }
   async delete(id: ObjectId): Promise<string> {
@@ -54,7 +56,9 @@ export class TrackService {
 
   async addComment(dto: CreateCommentDto): Promise<Comment> {
     const track = await this.trackModel.findById(dto.trackId);
+    if (!track) throw new NotFoundException({ message: 'Track not found' });
     const comment = await this.commentModel.create({ ...dto });
+    //todo was not create exception
     track.comments.push(comment.id);
     await track.save();
     return comment;
