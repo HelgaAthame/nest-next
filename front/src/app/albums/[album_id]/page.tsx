@@ -1,11 +1,9 @@
-import { Card, Grid, Divider, TextField, Button } from "@mui/material";
+import { Divider } from "@mui/material";
 import { TrackHeader } from "@/components/TrackHeader";
-import { CommentItem } from "@/components/CommentItem";
-import { appStore } from "@/store/store";
 import { Album } from "@/types/album";
 import { TrackItem } from "@/components/TrackItem";
 
-export const getAlbumById = async (id: string): Promise<Album> => {
+const getAlbumById = async (id: string): Promise<Album> => {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
   const res = await fetch(`${baseUrl}/albums/${id}`);
   return res.json();
@@ -16,7 +14,7 @@ export default async function AlbumPage({
 }: {
   params: { album_id: string };
 }) {
-  const album = await getAlbumById(params.album_id);
+  const album: Album = await getAlbumById(params.album_id);
   return (
     <div
       className="pd bg-cover flex w-full min-h-full"

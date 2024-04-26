@@ -2,14 +2,15 @@ import { AlbumItem } from "@/components/AlbumItem";
 import { TrackHeader } from "@/components/TrackHeader";
 import { Album } from "@/types/album";
 
-export const getAlbums = async (): Promise<Album[]> => {
+const getAlbums = async (): Promise<Album[]> => {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
-  const res = await fetch(`${baseUrl}/albums/`, {
+  const res = await fetch(`${baseUrl}/albums`, {
     cache: "no-store",
   });
   return res.json();
 };
 export default async function Albums() {
+  // @ts-ignore
   const albums = await getAlbums();
   return (
     <div className="pd flex">

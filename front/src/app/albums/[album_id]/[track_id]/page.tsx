@@ -1,10 +1,9 @@
-import { Card, Grid, Divider, TextField, Button } from "@mui/material";
+import { Divider, TextField, Button } from "@mui/material";
 import { Track } from "@/types/track";
 import { TrackHeader } from "@/components/TrackHeader";
 import { CommentItem } from "@/components/CommentItem";
-import { appStore } from "@/store/store";
 
-export const getTrackById = async (id: string): Promise<Track> => {
+const getTrackById = async (id: string): Promise<Track> => {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
   const res = await fetch(`${baseUrl}/tracks/${id}`);
   return res.json();
