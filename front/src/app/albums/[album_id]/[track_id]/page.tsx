@@ -5,7 +5,9 @@ import { Comments } from "@/components/Comments";
 
 const getTrackById = async (id: string): Promise<Track> => {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
-  const res = await fetch(`${baseUrl}/tracks/${id}`);
+  const res = await fetch(`${baseUrl}/tracks/${id}`, {
+    cache: "no-store",
+  });
   return res.json();
 };
 

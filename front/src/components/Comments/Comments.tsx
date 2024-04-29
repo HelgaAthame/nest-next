@@ -40,21 +40,28 @@ export const Comments = ({ comments, trackId }: Props) => {
   return (
     <Fragment>
       <h2>Comments</h2>
-      <TextField
-        label="Username"
-        fullWidth={true}
-        color="secondary"
-        {...userName}
-      />
-      <TextField
-        label="Comment"
-        fullWidth={true}
-        multiline
-        maxRows={4}
-        color="secondary"
-        {...comment}
-      />
-      <Button onClick={addComment}>Comment</Button>
+      <form
+        onSubmit={addComment}
+        className="flex flex-col gap-4 md:gap-6 2xl:gap-10"
+      >
+        <TextField
+          label="Username"
+          fullWidth={true}
+          color="secondary"
+          {...userName}
+        />
+        <TextField
+          label="Comment"
+          fullWidth={true}
+          multiline
+          maxRows={4}
+          color="secondary"
+          {...comment}
+        />
+        <Button type="submit" variant="contained" color="secondary">
+          Comment
+        </Button>
+      </form>
       {comments.map((comment) => (
         <CommentItem comment={comment} key={comment.id} />
       ))}
