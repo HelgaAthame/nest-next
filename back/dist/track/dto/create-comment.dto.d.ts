@@ -24,7 +24,7 @@
 /// <reference types="mongoose/types/inferschematype" />
 import { ObjectId } from 'mongoose';
 export declare class CreateCommentDto {
-    readonly username: string;
-    readonly text: string;
-    readonly trackId: ObjectId;
+    readonly username: any;
+    readonly text: any;
+    readonly trackid: ObjectId;
 }

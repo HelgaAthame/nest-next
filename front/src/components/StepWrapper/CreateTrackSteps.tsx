@@ -15,6 +15,7 @@ import { useInput } from "@/hooks/useInput";
 import { useRouter } from "next/navigation";
 import { appStore } from "@/store/store";
 import { StepWrapper } from "./StepWrapper";
+import { toast } from "react-toastify";
 
 const createTrack = async (payload: FormData): Promise<Track> => {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
@@ -49,8 +50,12 @@ export const CreateTrackSteps = ({ albumId }: Props) => {
     formData.append("audio", audio as Blob);
     formData.append("albumid", albumId);
     createTrack(formData).then((res) => {
-      setTrack(res);
-      router.push(`/albums/${albumId}/${res._id}`);
+      if ("_id" in res) {
+        setTrack(res);
+        router.push(`/albums/${albumId}/${res._id}`);
+      } else {
+        toast.error("Track was not created");
+      }
     });
   };
 

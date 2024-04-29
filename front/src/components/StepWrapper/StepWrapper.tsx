@@ -26,23 +26,31 @@ export const StepWrapper = ({
     setActiveStep(activeStep - 1);
   };
   return (
-    <div className="flex flex-col gap-4 md:gap-6 2xl:gap-10 min-h-max grow">
-      <Stepper activeStep={activeStep} color="secondary">
+    <div className="flex flex-col gap-4 md:gap-6 2xl:gap-10 grow">
+      <Stepper
+        activeStep={activeStep}
+        color="secondary"
+        className="overflow-hidden"
+      >
         {steps.map((step, index) => (
           <Step color="secondary" key={index} completed={activeStep > index}>
-            <StepButton
-              color="secondary"
-              onClick={() => {
-                setActiveStep(index);
-              }}
-            >
-              {step}
-            </StepButton>
+            <div className="h-20 flex items-center">
+              <StepButton
+                color="secondary"
+                onClick={() => {
+                  setActiveStep(index);
+                }}
+                className="py-0 h-16"
+              >
+                {step}
+              </StepButton>
+            </div>
           </Step>
         ))}
       </Stepper>
+
       {children}
-      <div className="flex w-full justify-between justify-self-end self-end">
+      <div className="flex w-full justify-between justify-self-end self-end h-12">
         <Button
           variant="outlined"
           color="secondary"

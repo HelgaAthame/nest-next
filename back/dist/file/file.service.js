@@ -32,7 +32,7 @@ let FileService = class FileService {
             return type + '/' + fileName;
         }
         catch (e) {
-            throw new common_1.HttpException(e.message, common_1.HttpStatus.INTERNAL_SERVER_ERROR);
+            throw new common_1.ConflictException('File was not created');
         }
     }
     removeFile(fileName) { }

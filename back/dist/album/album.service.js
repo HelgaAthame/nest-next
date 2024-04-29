@@ -53,7 +53,8 @@ let AlbumService = class AlbumService {
     async addTrack(dto, picture, audio) {
         const audioPath = await this.fileService.createFile(file_service_1.FileType.AUDIO, audio);
         const picturePath = await this.fileService.createFile(file_service_1.FileType.IMAGE, picture);
-        console.log(dto);
+        if (!dto.albumid)
+            throw new common_1.BadRequestException('Incorrect album id');
         const album = await this.albumModel.findById(dto.albumid);
         if (!album)
             throw new common_1.NotFoundException({ message: 'Album not found' });
@@ -64,8 +65,9 @@ let AlbumService = class AlbumService {
             audio: audioPath,
         });
         if (!track)
-            throw new common_1.NotFoundException({ message: 'Track not found' });
-        album.tracks.push(track.id);
+            throw new common_1.NotFoundException({ message: 'Track was not created' });
+        if (track)
+            album.tracks.push(track.id);
         await album.save();
         return track;
     }

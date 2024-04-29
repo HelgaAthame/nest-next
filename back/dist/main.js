@@ -9,7 +9,7 @@ const start = async () => {
         const app = await core_1.NestFactory.create(app_module_1.AppModule);
         app.useGlobalFilters(new HttpException_filter_1.HttpExceptionFilter());
         app.enableCors();
-        await app.listen(PORT, () => {
+        await app.listen(PORT, '0.0.0.0', () => {
             console.log(`Server listens on PORT=${PORT}`);
         });
     }

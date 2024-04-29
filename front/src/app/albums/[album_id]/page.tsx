@@ -5,7 +5,9 @@ import { TrackItem } from "@/components/TrackItem";
 
 const getAlbumById = async (id: string): Promise<Album> => {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
-  const res = await fetch(`${baseUrl}/albums/${id}`);
+  const res = await fetch(`${baseUrl}/albums/${id}`, {
+    cache: "no-store",
+  });
   return res.json();
 };
 
@@ -39,10 +41,12 @@ export default async function AlbumPage({
           />
           <div>{album.artist}</div>
           <Divider />
-          <h2>Tracks</h2>
-
           {album.tracks.map((track) => (
-            <TrackItem key={track._id} thisTrack={track} />
+            <TrackItem
+              key={track._id}
+              thisTrack={track}
+              albumid={params.album_id}
+            />
           ))}
         </div>
       </div>

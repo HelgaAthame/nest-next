@@ -55,7 +55,8 @@ export class TrackService {
   }
 
   async addComment(dto: CreateCommentDto): Promise<Comment> {
-    const track = await this.trackModel.findById(dto.trackId);
+    console.log(dto);
+    const track = await this.trackModel.findById(dto.trackid);
     if (!track) throw new NotFoundException({ message: 'Track not found' });
     const comment = await this.commentModel.create({ ...dto });
     //todo was not create exception

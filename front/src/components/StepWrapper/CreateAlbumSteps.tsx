@@ -1,18 +1,9 @@
 "use client";
-import {
-  Container,
-  Stepper,
-  Step,
-  StepButton,
-  Button,
-  TextField,
-} from "@mui/material";
-import { ChangeEvent, Fragment, useState } from "react";
+import { TextField } from "@mui/material";
+import { Fragment, useState } from "react";
 import { FileUpload, PicturePreview } from "../FileUpload";
-import { AudioPreview } from "../FileUpload/AudioPreview";
 import { useInput } from "@/hooks/useInput";
-import { useRouter } from "next/navigation";
-import { appStore } from "@/store/store";
+import { useParams, useRouter } from "next/navigation";
 import { Album } from "@/types/album";
 import { StepWrapper } from "./StepWrapper";
 

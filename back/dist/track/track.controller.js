@@ -30,6 +30,7 @@ let TrackController = class TrackController {
         return this.trackService.delete(id);
     }
     addComment(dto) {
+        console.log(dto);
         return this.trackService.addComment(dto);
     }
     listen(id) {
@@ -60,7 +61,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], TrackController.prototype, "delete", null);
 __decorate([
-    (0, common_1.Post)('/comment'),
+    (0, common_1.Post)('comment'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_comment_dto_1.CreateCommentDto]),

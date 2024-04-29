@@ -1,4 +1,9 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import {
+  ConflictException,
+  HttpException,
+  HttpStatus,
+  Injectable,
+} from '@nestjs/common';
 import * as path from 'path';
 import * as fs from 'fs/promises';
 import * as uuid from 'uuid';
@@ -23,7 +28,8 @@ export class FileService {
       await fs.writeFile(path.resolve(filePath, fileName), file.buffer);
       return type + '/' + fileName;
     } catch (e) {
-      throw new HttpException(e.message, HttpStatus.INTERNAL_SERVER_ERROR);
+      throw new ConflictException('File was not created');
+      //HttpException(e.message, HttpStatus.INTERNAL_SERVER_ERROR);
       //todo file was not created exception
     }
   }

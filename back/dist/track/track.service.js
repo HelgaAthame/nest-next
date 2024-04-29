@@ -47,7 +47,8 @@ let TrackService = class TrackService {
         return `Album ${track.id} was successfully deleted!`;
     }
     async addComment(dto) {
-        const track = await this.trackModel.findById(dto.trackId);
+        console.log(dto);
+        const track = await this.trackModel.findById(dto.trackid);
         if (!track)
             throw new common_1.NotFoundException({ message: 'Track not found' });
         const comment = await this.commentModel.create({ ...dto });

@@ -1,7 +1,7 @@
-import { Divider, TextField, Button } from "@mui/material";
+import Divider from "@mui/material/Divider";
 import { Track } from "@/types/track";
 import { TrackHeader } from "@/components/TrackHeader";
-import { CommentItem } from "@/components/CommentItem";
+import { Comments } from "@/components/Comments";
 
 const getTrackById = async (id: string): Promise<Track> => {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
@@ -17,7 +17,7 @@ export default async function TrackPage({
   const track = await getTrackById(params.track_id);
   return (
     <div
-      className="pd bg-cover flex w-full min-h-full"
+      className="pd bg-cover flex w-full min-h-full bg-center"
       style={{
         backgroundImage: `url(${process.env.NEXT_PUBLIC_BASE_URL}/${track.picture})`,
       }}
@@ -28,8 +28,8 @@ export default async function TrackPage({
             title={track.name}
             buttons={[
               {
-                title: "Back to tracklist",
-                link: "/tracks",
+                title: "Back to album",
+                link: `/albums/${params.album_id}`,
               },
             ]}
           />
@@ -38,19 +38,7 @@ export default async function TrackPage({
           <div>Listens: {track.listens}</div>
           <div>{track.text}</div>
           <Divider />
-          <h2>Comments</h2>
-          <TextField label="Username" fullWidth={true} color="secondary" />
-          <TextField
-            label="Comment"
-            fullWidth={true}
-            multiline
-            maxRows={4}
-            color="secondary"
-          />
-          <Button>Comment</Button>
-          {track.comments.map((comment) => (
-            <CommentItem comment={comment} key={comment.id} />
-          ))}
+          <Comments comments={track.comments} trackId={track._id} />
         </div>
       </div>
     </div>

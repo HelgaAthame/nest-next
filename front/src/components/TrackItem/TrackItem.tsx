@@ -10,22 +10,20 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogTitle from "@mui/material/DialogTitle";
 import { toast } from "react-toastify";
-import { revalidatePath } from "next/cache";
 
 interface Props {
   thisTrack: Track;
-  active?: boolean;
+  albumid: string;
 }
 const deleteTrack = async (id: string): Promise<number> => {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
   const res = await fetch(`${baseUrl}/tracks/${id}`, {
     method: "DELETE",
   });
-  console.log(res);
   return res.json();
 };
 
-export const TrackItem = ({ thisTrack }: Props) => {
+export const TrackItem = ({ thisTrack, albumid }: Props) => {
   const { active, setTrack, setActive, track } = appStore(
     (state: any) => state
   );
@@ -44,9 +42,6 @@ export const TrackItem = ({ thisTrack }: Props) => {
     e.stopPropagation();
     if (thisTrack._id) {
       deleteTrack(String(thisTrack._id))
-        .then((res) => {
-          revalidatePath("/tracks");
-        })
         .catch((e) => {
           toast.error(e.message);
         })
@@ -98,7 +93,7 @@ export const TrackItem = ({ thisTrack }: Props) => {
       <div
         className="flex sm:items-center p-2 gap-2 flex-col sm:flex-row"
         onClick={() => {
-          router.push(`/tracks/${thisTrack._id}`);
+          router.push(`/albums/${albumid}/${thisTrack._id}`);
         }}
       >
         <div className="flex gap-2 shrink-0">

@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Album } from './schemas/album.schema';
 import { Model, ObjectId } from 'mongoose';
@@ -57,7 +61,7 @@ export class AlbumService {
       FileType.IMAGE,
       picture,
     );
-    console.log(dto);
+    if (!dto.albumid) throw new BadRequestException('Incorrect album id');
     const album = await this.albumModel.findById(dto.albumid);
     if (!album) throw new NotFoundException({ message: 'Album not found' });
     const track = await this.trackModel.create({
@@ -66,8 +70,9 @@ export class AlbumService {
       picture: picturePath,
       audio: audioPath,
     });
-    if (!track) throw new NotFoundException({ message: 'Track not found' }); //todo create exception
-    album.tracks.push(track.id);
+    if (!track)
+      throw new NotFoundException({ message: 'Track was not created' });
+    if (track) album.tracks.push(track.id);
     await album.save();
     return track;
   }
