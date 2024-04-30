@@ -36,6 +36,6 @@ export declare class TrackService {
     getAll(count?: number, offset?: number): Promise<Track[]>;
     delete(id: ObjectId): Promise<string>;
     addComment(dto: CreateCommentDto): Promise<Comment>;
-    listen(id: ObjectId): Promise<void>;
+    listen(id: ObjectId): Promise<number>;
     search(query?: string): Promise<Track[]>;
 }

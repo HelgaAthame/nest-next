@@ -32,8 +32,12 @@ export const TrackItem = ({ thisTrack, albumid }: Props) => {
 
   const play: MouseEventHandler<HTMLButtonElement> | undefined = (e) => {
     e.stopPropagation();
+    if (thisTrack && track && track._id !== thisTrack._id) {
+      setActive(true);
+    } else {
+      setActive(!active);
+    }
     setTrack(thisTrack);
-    setActive(!active);
   };
 
   const deleteHandler: MouseEventHandler<HTMLButtonElement> | undefined = (

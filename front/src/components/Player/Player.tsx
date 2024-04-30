@@ -4,7 +4,21 @@ import { IconButton } from "@mui/material";
 import Image from "next/image";
 import { TrackProgress } from "./TrackProgress";
 import { appStore } from "@/store/store";
-import { useEffect, MouseEventHandler, useState, ChangeEvent } from "react";
+import {
+  useEffect,
+  MouseEventHandler,
+  useState,
+  ChangeEvent,
+  useCallback,
+} from "react";
+
+const listensPlus = async (id: string): Promise<string> => {
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+  const res = await fetch(`${baseUrl}/tracks/listen/${id}`, {
+    method: "POST",
+  });
+  return res.json();
+};
 
 let audio: HTMLAudioElement;
 export const Player = () => {
@@ -21,6 +35,9 @@ export const Player = () => {
       audio.volume = Number(val) / 100;
     }
   };
+  const listenIncrease = useCallback(() => {
+    listensPlus(track._id);
+  }, [track]);
 
   const changeCurrentTime = (e: ChangeEvent<Element>) => {
     const target = e.target as HTMLInputElement;
@@ -44,13 +61,22 @@ export const Player = () => {
     audio.ontimeupdate = () => {
       setCurTime(audio.currentTime);
     };
+    audio.onended = () => {
+      listensPlus(track._id);
+    };
   }, []);
 
   useEffect(() => {
     if (track && audio) {
       audio.src = `${process.env.NEXT_PUBLIC_BASE_URL}/${track.audio}`;
       audio.volume = volume / 100;
+      audio.addEventListener("ended", listenIncrease);
     }
+    return () => {
+      if (audio) {
+        audio.removeEventListener("ended", listenIncrease);
+      }
+    };
   }, [track, audio]);
 
   useEffect(() => {
@@ -61,7 +87,7 @@ export const Player = () => {
         audio.pause();
       }
     }
-  }, [active]);
+  }, [active, track]);
 
   return track ? (
     <div className="min-h-12 w-full bottom bg-white/50 backdrop-blur ">

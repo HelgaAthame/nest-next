@@ -47,7 +47,6 @@ let TrackService = class TrackService {
         return `Album ${track.id} was successfully deleted!`;
     }
     async addComment(dto) {
-        console.log(dto);
         const track = await this.trackModel.findById(dto.trackid);
         if (!track)
             throw new common_1.NotFoundException({ message: 'Track not found' });
@@ -60,6 +59,7 @@ let TrackService = class TrackService {
         const track = await this.trackModel.findById(id);
         track.listens += 1;
         track.save();
+        return track.listens;
     }
     async search(query = '') {
         const tracks = await this.trackModel.find({

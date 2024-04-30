@@ -13,7 +13,7 @@ export const TrackHeader = ({ title, buttons }: Props) => {
   const router = useRouter();
   return (
     <div className="w-full flex justify-between sm:items-center flex-col sm:flex-row gap-2">
-      <h1 className="grow">{title}</h1>
+      <h1 className="grow font-semibold text-xl ">{title}</h1>
       {buttons.map((button, ind) => (
         <Button
           key={ind}

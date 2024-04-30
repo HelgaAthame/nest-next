@@ -62,9 +62,11 @@ export const Comments = ({ comments, trackId }: Props) => {
           Comment
         </Button>
       </form>
-      {comments.map((comment) => (
-        <CommentItem comment={comment} key={comment.id} />
-      ))}
+      <div className="gap-4 md:gap-6 2xl:gap-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
+        {comments.map((comment) => (
+          <CommentItem comment={comment} key={comment.id} />
+        ))}
+      </div>
     </Fragment>
   );
 };

@@ -30,7 +30,6 @@ let TrackController = class TrackController {
         return this.trackService.delete(id);
     }
     addComment(dto) {
-        console.log(dto);
         return this.trackService.addComment(dto);
     }
     listen(id) {
@@ -68,7 +67,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], TrackController.prototype, "addComment", null);
 __decorate([
-    (0, common_1.Post)('/listen'),
+    (0, common_1.Post)('/listen/:id'),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),

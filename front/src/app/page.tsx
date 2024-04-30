@@ -1,6 +1,6 @@
-import {Navbar} from "@/components/Navbar";
-import {Button} from "@mui/material";
-import {Fragment} from "react";
+import { Navbar } from "@/components/Navbar";
+import { Button } from "@mui/material";
+import { Fragment } from "react";
 
 export default function Home() {
   return (
@@ -10,7 +10,19 @@ export default function Home() {
           <h1>Music Library</h1>
           <h3>
             Music library for storing, changing, listening to your favorite
-            tracks. Developed by Olga Khmaruk //todo stack
+            tracks. <br />
+            Developed by <strong>Olga Khmaruk</strong>.
+          </h3>
+          <h3>
+            <strong>STACK</strong> 💎
+            <br /> Next.js
+            <br /> React
+            <br /> Zustand
+            <br /> Tailwind <br />
+            Typescript <br />
+            Nest.js
+            <br /> Mongo db <br />
+            Node js
           </h3>
         </div>
         <div className="flex pd flex-col sm:flex-row">

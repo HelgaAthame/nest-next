@@ -32,5 +32,5 @@ export declare class TrackController {
     getAll(count: number, offset: number): Promise<import("./schemas/track.schema").Track[]>;
     delete(id: ObjectId): Promise<string>;
     addComment(dto: CreateCommentDto): Promise<import("./schemas/comment.schema").Comment>;
-    listen(id: ObjectId): Promise<void>;
+    listen(id: ObjectId): Promise<number>;
 }
