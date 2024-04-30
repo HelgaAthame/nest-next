@@ -4,5 +4,5 @@ back/.env
 node_modules
 front/node_modules
 front/.env
-back/dist/tsconfig.build.tsbuildinfo
+/*back/dist/tsconfig.build.tsbuildinfo*/
 .vercel
