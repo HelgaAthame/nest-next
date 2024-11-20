@@ -1,11 +1,10 @@
-import { Injectable, NotFoundException, Query } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, ObjectId } from 'mongoose';
 import { Track } from './schemas/track.schema';
 import { Comment } from './schemas/comment.schema';
-import { CreateTrackDto } from './dto/create-track.dto';
 import { CreateCommentDto } from './dto/create-comment.dto';
-import { FileService, FileType } from '@/file/file.service';
+import { FileService } from '../file/file.service';
 
 @Injectable()
 export class TrackService {

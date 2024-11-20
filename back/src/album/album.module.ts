@@ -4,8 +4,8 @@ import { Album, AlbumSchema } from './schemas/album.schema';
 import { FileService } from '../file/file.service';
 import { AlbumService } from './album.service';
 import { AlbumController } from './album.controller';
-import { Track, TrackSchema } from '@/track/schemas/track.schema';
-import { TrackModule } from '@/track/track.module';
+import { Track, TrackSchema } from '../track/schemas/track.schema';
+import { TrackModule } from '../track/track.module';
 
 @Module({
   imports: [
