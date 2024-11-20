@@ -1,6 +1,10 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  BadRequestException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model, ObjectId } from 'mongoose';
+import { Model, ObjectId, Types } from 'mongoose';
 import { Track } from './schemas/track.schema';
 import { Comment } from './schemas/comment.schema';
 import { CreateCommentDto } from './dto/create-comment.dto';
@@ -34,7 +38,11 @@ export class TrackService {
   // }
 
   async getOne(id: ObjectId): Promise<Track> {
-    const track = await this.trackModel.findById(id).populate('comments');
+    if (!Types.ObjectId.isValid(id.toString())) {
+      throw new BadRequestException('Invalid ObjectId format');
+    }
+    const objectId = new Types.ObjectId(id.toString());
+    const track = await this.trackModel.findById(objectId).populate('comments');
     if (!track) throw new NotFoundException({ message: 'Track not found' });
     return track;
   }

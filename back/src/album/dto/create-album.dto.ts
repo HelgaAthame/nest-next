@@ -1,4 +1,13 @@
+import { ApiProperty } from '@nestjs/swagger';
+
 export class CreateAlbumDto {
-    readonly name;
-    readonly artist;
-  }
+  @ApiProperty({
+    type: String,
+  })
+  readonly name;
+
+  @ApiProperty({
+    type: String,
+  })
+  readonly artist;
+}
