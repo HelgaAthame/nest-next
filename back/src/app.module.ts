@@ -11,7 +11,8 @@ import { AlbumModule } from './album/album.module';
       rootPath: resolve(__dirname, 'static'),
     }),
     MongooseModule.forRoot(
-      'mongodb+srv://athame:666@athame.vwrzwf2.mongodb.net/',
+      'mongodb+srv://olgafront:666@cluster0.jmctt.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0',
+      // 'mongodb+srv://athame:666@athame.vwrzwf2.mongodb.net/',
     ),
     FileModule,
     AlbumModule,
