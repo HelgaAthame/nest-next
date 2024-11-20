@@ -5,7 +5,7 @@ import { Track } from './schemas/track.schema';
 import { Comment } from './schemas/comment.schema';
 import { CreateTrackDto } from './dto/create-track.dto';
 import { CreateCommentDto } from './dto/create-comment.dto';
-import { FileService, FileType } from 'src/file/file.service';
+import { FileService, FileType } from '@/file/file.service';
 
 @Injectable()
 export class TrackService {

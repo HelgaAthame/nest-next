@@ -6,11 +6,10 @@ import {
 import { InjectModel } from '@nestjs/mongoose';
 import { Album } from './schemas/album.schema';
 import { Model, ObjectId } from 'mongoose';
-import { FileService, FileType } from 'src/file/file.service';
-import { Track } from 'src/track/schemas/track.schema';
+import { FileService, FileType } from '../file/file.service';
+import { Track } from '@/track/schemas/track.schema';
 import { CreateAlbumDto } from './dto/create-album.dto';
-import { CreateTrackDto } from 'src/track/dto/create-track.dto';
-import { TrackService } from '@/track/track.service';
+import { CreateTrackDto } from '@/track/dto/create-track.dto';
 
 @Injectable()
 export class AlbumService {

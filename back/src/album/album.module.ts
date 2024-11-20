@@ -1,11 +1,10 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Album, AlbumSchema } from './schemas/album.schema';
-import { FileService } from 'src/file/file.service';
+import { FileService } from '../file/file.service';
 import { AlbumService } from './album.service';
 import { AlbumController } from './album.controller';
 import { Track, TrackSchema } from '@/track/schemas/track.schema';
-import { TrackService } from '@/track/track.service';
 import { TrackModule } from '@/track/track.module';
 
 @Module({

@@ -13,7 +13,7 @@ import { AlbumService } from './album.service';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { CreateAlbumDto } from './dto/create-album.dto';
 import { ObjectId } from 'mongoose';
-import { CreateTrackDto } from 'src/track/dto/create-track.dto';
+import { CreateTrackDto } from '../track/dto/create-track.dto';
 
 @Controller('/albums')
 export class AlbumController {
