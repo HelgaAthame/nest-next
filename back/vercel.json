@@ -15,7 +15,7 @@
   ],
   "build": {
     "env": {
-      "NODE_PATH": "src"
+      "NODE_PATH": "./src"
     }
   }
 }
