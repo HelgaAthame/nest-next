@@ -1,4 +1,4 @@
-import { Navbar } from "@/components/Navbar";
+import { Navbar } from "../components/Navbar";
 import { Button } from "@mui/material";
 import { Fragment } from "react";
 

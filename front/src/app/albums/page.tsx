@@ -1,6 +1,6 @@
-import { AlbumItem } from "@/components/AlbumItem";
-import { TrackHeader } from "@/components/TrackHeader";
-import { Album } from "@/types/album";
+import { AlbumItem } from "../../components/AlbumItem";
+import { TrackHeader } from "../../components/TrackHeader";
+import { Album } from "../../types/album";
 
 const getAlbums = async (): Promise<Album[]> => {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;

@@ -1,7 +1,7 @@
 import { Divider } from "@mui/material";
-import { TrackHeader } from "@/components/TrackHeader";
-import { Album } from "@/types/album";
-import { TrackItem } from "@/components/TrackItem";
+import { TrackHeader } from "../../../components/TrackHeader";
+import { Album } from "../../../types/album";
+import { TrackItem } from "../../../components/TrackItem";
 
 const getAlbumById = async (id: string): Promise<Album> => {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;

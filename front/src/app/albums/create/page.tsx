@@ -1,4 +1,4 @@
-import { CreateAlbumSteps } from "@/components/StepWrapper";
+import { CreateAlbumSteps } from "../../../components/StepWrapper";
 import { Grid, Card } from "@mui/material";
 
 export default function CreateTrack() {

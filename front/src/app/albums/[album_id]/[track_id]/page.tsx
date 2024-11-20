@@ -1,7 +1,7 @@
 import Divider from "@mui/material/Divider";
-import { Track } from "@/types/track";
-import { TrackHeader } from "@/components/TrackHeader";
-import { Comments } from "@/components/Comments";
+import { Track } from "../../../../types/track";
+import { TrackHeader } from "../../../../components/TrackHeader";
+import { Comments } from "../../../../components/Comments";
 
 const getTrackById = async (id: string): Promise<Track> => {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
