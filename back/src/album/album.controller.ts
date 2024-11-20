@@ -16,7 +16,7 @@ import { ObjectId } from 'mongoose';
 import { CreateTrackDto } from '../track/dto/create-track.dto';
 import { ApiBody, ApiResponse } from '@nestjs/swagger';
 import { Album } from './schemas/album.schema';
-import { Track } from '@/track/schemas/track.schema';
+import { Track } from '../track/schemas/track.schema';
 
 @Controller('/albums')
 export class AlbumController {
