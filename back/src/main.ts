@@ -7,7 +7,9 @@ const start = async () => {
     const PORT = process.env.PORT || 5000;
     const app = await NestFactory.create(AppModule);
     app.useGlobalFilters(new HttpExceptionFilter());
-    app.enableCors();
+    app.enableCors({
+      origin: "https://nest-next-bqu12p788-helgaathames-projects.vercel.app/"
+    });
     await app.listen(PORT, '0.0.0.0', () => {
       console.log(`Server listens on PORT=${PORT}`);
     });
