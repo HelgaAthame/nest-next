@@ -2,7 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { HttpExceptionFilter } from './filters/HttpException.filter';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-import * as bodyParser from 'body-parser';
+// import * as bodyParser from 'body-parser';
 
 const start = async () => {
   try {
@@ -22,8 +22,8 @@ const start = async () => {
     const documentFactory = () => SwaggerModule.createDocument(app, config);
     SwaggerModule.setup('swagger', app, documentFactory);
 
-    app.use(bodyParser.json({ limit: '40mb' }));
-    app.use(bodyParser.urlencoded({ extended: true, limit: '40mb' }));
+    // app.use(bodyParser.json({ limit: '40mb' }));
+    // app.use(bodyParser.urlencoded({ extended: true, limit: '40mb' }));
 
     // app.use((req, res, next) => {
     //   res.header(
