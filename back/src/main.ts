@@ -10,7 +10,7 @@ const start = async () => {
     const app = await NestFactory.create(AppModule);
     app.useGlobalFilters(new HttpExceptionFilter());
     app.enableCors({
-      origin: '*',
+      //   origin: '*',
     });
 
     const config = new DocumentBuilder()
@@ -25,18 +25,18 @@ const start = async () => {
     app.use(bodyParser.json({ limit: '40mb' }));
     app.use(bodyParser.urlencoded({ extended: true, limit: '40mb' }));
 
-    app.use((req, res, next) => {
-      res.header(
-        'Access-Control-Allow-Origin',
-        'https://nest-next-kappa.vercel.app',
-      );
-      res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-      res.header(
-        'Access-Control-Allow-Headers',
-        'Content-Type, Accept, Authorization',
-      );
-      next();
-    });
+    // app.use((req, res, next) => {
+    //   res.header(
+    //     'Access-Control-Allow-Origin',
+    //     'https://nest-next-kappa.vercel.app',
+    //   );
+    //   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+    //   res.header(
+    //     'Access-Control-Allow-Headers',
+    //     'Content-Type, Accept, Authorization',
+    //   );
+    //   next();
+    // });
 
     await app.listen(PORT, '0.0.0.0', () => {
       console.log(`Server listens on PORT=${PORT}`);
