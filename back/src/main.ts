@@ -10,7 +10,7 @@ const start = async () => {
     const app = await NestFactory.create(AppModule);
     app.useGlobalFilters(new HttpExceptionFilter());
     app.enableCors({
-      //   origin: '*',
+      origin: '*',
     });
 
     const config = new DocumentBuilder()
