@@ -31,6 +31,7 @@ export class AlbumController {
   getAll(@Query('count') count: number, @Query('offset') offset: number) {
     return this.albumService.getAll(count, offset);
   }
+
   @Get(':id')
   @ApiResponse({
     status: 200,

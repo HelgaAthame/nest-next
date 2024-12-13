@@ -24,7 +24,8 @@ export class AlbumService {
       .find()
       .skip(Number(offset))
       .limit(Number(count));
-    if (!albums) throw new NotFoundException({ message: 'Albums not found' });
+    if (!albums || !albums.length)
+      throw new NotFoundException({ message: 'Albums not found' });
     return albums;
   }
 

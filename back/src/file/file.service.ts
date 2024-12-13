@@ -1,9 +1,4 @@
-import {
-  ConflictException,
-  HttpException,
-  HttpStatus,
-  Injectable,
-} from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 import * as path from 'path';
 import * as fs from 'fs/promises';
 import * as uuid from 'uuid';
@@ -33,6 +28,4 @@ export class FileService {
       //todo file was not created exception
     }
   }
-
-  removeFile(fileName: string) {}
 }
