@@ -9,7 +9,11 @@ const start = async () => {
     const PORT = process.env.PORT || 5000;
     const app = await NestFactory.create(AppModule);
     app.useGlobalFilters(new HttpExceptionFilter());
-    app.enableCors();
+    app.enableCors({
+      origin: [/https:\/\/.*\.vercel\.app/], // Разрешить все поддомены vercel
+      methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+      allowedHeaders: 'Content-Type, Accept',
+    });
 
     const config = new DocumentBuilder()
       .setTitle('Music library')

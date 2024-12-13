@@ -1,4 +1,5 @@
 import {
+  // BadRequestException,
   Body,
   Controller,
   Delete,
@@ -17,6 +18,8 @@ import { CreateTrackDto } from '../track/dto/create-track.dto';
 import { ApiBody, ApiResponse } from '@nestjs/swagger';
 import { Album } from './schemas/album.schema';
 import { Track } from '../track/schemas/track.schema';
+// import { FilesInterceptor } from '@nestjs/platform-express';
+// import * as path from 'path';
 
 @Controller('/albums')
 export class AlbumController {
@@ -65,6 +68,23 @@ export class AlbumController {
       { name: 'picture', maxCount: 1 },
       { name: 'audio', maxCount: 1 },
     ]),
+    // FilesInterceptor('files', 2, {
+    //   limits: {
+    //     fileSize: 6 * 1024 * 1024, // 6MB для каждого файла
+    //   },
+    //   fileFilter: (req, file, callback) => {
+    //     const ext = path.extname(file.originalname).toLowerCase();
+    //     if (
+    //       ext !== '.mp3' &&
+    //       ext !== '.jpg' &&
+    //       ext !== '.jpeg' &&
+    //       ext !== '.png'
+    //     ) {
+    //       return callback(new BadRequestException('Invalid file type'), false);
+    //     }
+    //     callback(null, true);
+    //   },
+    // }),
   )
   @ApiBody({ type: [CreateTrackDto] })
   addTrack(@UploadedFiles() files, @Body() dto: CreateTrackDto) {
