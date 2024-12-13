@@ -11,9 +11,7 @@ const start = async () => {
         const app = await core_1.NestFactory.create(app_module_1.AppModule);
         app.useGlobalFilters(new HttpException_filter_1.HttpExceptionFilter());
         app.enableCors({
-            origin: [/https:\/\/.*\.vercel\.app/],
-            methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-            allowedHeaders: 'Content-Type, Accept',
+            origin: '*',
         });
         const config = new swagger_1.DocumentBuilder()
             .setTitle('Music library')

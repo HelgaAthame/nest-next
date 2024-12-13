@@ -10,9 +10,7 @@ const start = async () => {
     const app = await NestFactory.create(AppModule);
     app.useGlobalFilters(new HttpExceptionFilter());
     app.enableCors({
-      origin: [/https:\/\/.*\.vercel\.app/], // Разрешить все поддомены vercel
-      methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-      allowedHeaders: 'Content-Type, Accept',
+      origin: '*',
     });
 
     const config = new DocumentBuilder()
