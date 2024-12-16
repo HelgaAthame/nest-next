@@ -7,13 +7,23 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppModule = void 0;
-const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const file_module_1 = require("./file/file.module");
 const path_1 = require("path");
 const serve_static_1 = require("@nestjs/serve-static");
 const album_module_1 = require("./album/album.module");
+const common_1 = require("@nestjs/common");
 let AppModule = class AppModule {
+    configure(consumer) {
+        consumer
+            .apply((req, res, next) => {
+            if (req.url === '/index.html') {
+                return res.status(404).send('Not Found');
+            }
+            next();
+        })
+            .forRoutes('*');
+    }
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([

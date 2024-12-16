@@ -1,9 +1,9 @@
-import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { FileModule } from './file/file.module';
 import { resolve } from 'path';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { AlbumModule } from './album/album.module';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 
 @Module({
   imports: [
@@ -18,4 +18,16 @@ import { AlbumModule } from './album/album.module';
     AlbumModule,
   ],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    // Добавьте проверку для запроса к index.html
+    consumer
+      .apply((req, res, next) => {
+        if (req.url === '/index.html') {
+          return res.status(404).send('Not Found');
+        }
+        next();
+      })
+      .forRoutes('*');
+  }
+}
