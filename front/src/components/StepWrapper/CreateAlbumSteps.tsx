@@ -12,7 +12,6 @@ const createAlbum = async (payload: FormData): Promise<Album> => {
   const res = await fetch(`${baseUrl}/albums`, {
     method: "POST",
     body: payload,
-    mode: "no-cors",
   });
   return res.json();
 };

@@ -2,9 +2,9 @@ version: '3'
 services:
   frontend:
     build:
-      context: ./frontend  # Укажите путь к фронтенду
+      context: ./front  # Укажите путь к фронтенду
     ports:
-      - "3001:3000"  # Порт на котором будет работать фронтенд (измените, если нужно)
+      - "3000:3000"  # Порт на котором будет работать фронтенд (измените, если нужно)
     networks:
       - app-network
     depends_on:
@@ -12,7 +12,7 @@ services:
 
   backend:
     build:
-      context: ./backend  # Укажите путь к бэкенду
+      context: ./backd  # Укажите путь к бэкенду
     ports:
       - "5000:5000"  # Порт на котором будет работать бэкенд
     networks:

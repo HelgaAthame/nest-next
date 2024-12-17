@@ -1,4 +1,3 @@
-import { arrayBufferToBase64 } from "@/utils/arrayBufferToBase64";
 import { Pause, PlayArrow } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 import { useCallback, useEffect, useState } from "react";

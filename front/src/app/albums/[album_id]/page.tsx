@@ -41,13 +41,16 @@ export default async function AlbumPage({
           />
           <div>{album.artist}</div>
           <Divider />
-          {album.tracks.map((track) => (
-            <TrackItem
-              key={track._id}
-              thisTrack={track}
-              albumid={params.album_id}
-            />
-          ))}
+          {Array.isArray(album.tracks) &&
+            album.tracks &&
+            Array.isArray(album.tracks) &&
+            album.tracks.map((track) => (
+              <TrackItem
+                key={track._id}
+                thisTrack={track}
+                albumid={params.album_id}
+              />
+            ))}
         </div>
       </div>
     </div>
