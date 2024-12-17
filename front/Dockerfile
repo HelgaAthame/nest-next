@@ -13,7 +13,11 @@ RUN npm install
 # Копируем все файлы проекта
 COPY . .
 
-# Собираем приложение (если оно использует Next.js для SSR, используем команду build)
+# Создаём файл .env.local с нужной переменной окружения
+ARG NEXT_PUBLIC_BASE_URL
+RUN echo "NEXT_PUBLIC_BASE_URL=${NEXT_PUBLIC_BASE_URL}" > .env.local
+
+# Собираем приложение (для Next.js с SSR нужно собрать build)
 RUN npm run build
 
 # Указываем порт, на котором будет работать приложение
