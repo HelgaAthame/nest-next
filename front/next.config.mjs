@@ -10,7 +10,7 @@ const nextConfig = {
       },
       {
         protocol: "https",
-        hostname: "nest-next-production.up.railway.app",
+        hostname: "nest-next-production-e9c3.up.railway.app",
         pathname: "/image/**",
       },
     ],
