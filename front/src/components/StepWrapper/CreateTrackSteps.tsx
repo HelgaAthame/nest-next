@@ -1,13 +1,6 @@
 "use client";
-import {
-  Container,
-  Stepper,
-  Step,
-  StepButton,
-  Button,
-  TextField,
-} from "@mui/material";
-import { ChangeEvent, Fragment, useState } from "react";
+import { TextField } from "@mui/material";
+import { Fragment, useState } from "react";
 import { FileUpload, PicturePreview } from "../FileUpload";
 import { AudioPreview } from "../FileUpload/AudioPreview";
 import { Track } from "@/types/track";
@@ -49,14 +42,18 @@ export const CreateTrackSteps = ({ albumId }: Props) => {
     formData.append("picture", picture as Blob);
     formData.append("audio", audio as Blob);
     formData.append("albumid", albumId);
-    createTrack(formData).then((res) => {
-      if ("_id" in res) {
-        setTrack(res);
-        router.push(`/albums/${albumId}/${res._id}`);
-      } else {
-        toast.error("Track was not created");
-      }
-    });
+    createTrack(formData)
+      .then((res) => {
+        if ("_id" in res && albumId) {
+          setTrack(res);
+          router.push(`/albums/${albumId}/${res._id}`);
+        } else {
+          toast.error("Track was not created");
+        }
+      })
+      .catch((e) => {
+        toast.error(e.message);
+      });
   };
 
   let StepContent = <Fragment></Fragment>;

@@ -6,6 +6,7 @@ import { useInput } from "@/hooks/useInput";
 import { useParams, useRouter } from "next/navigation";
 import { Album } from "@/types/album";
 import { StepWrapper } from "./StepWrapper";
+import { toast } from "react-toastify";
 
 const createAlbum = async (payload: FormData): Promise<Album> => {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
@@ -30,9 +31,13 @@ export const CreateAlbumSteps = () => {
     formData.append("name", albumName.value);
     formData.append("artist", albumArtist.value);
     formData.append("picture", picture as Blob);
-    createAlbum(formData).then((res) => {
-      router.push(`/albums/${res._id}`);
-    });
+    createAlbum(formData)
+      .then((res) => {
+        router.push(`/albums/${res._id}`);
+      })
+      .catch((e) => {
+        toast.error(e.message);
+      });
   };
 
   let StepContent = <Fragment></Fragment>;
