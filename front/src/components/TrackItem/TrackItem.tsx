@@ -10,6 +10,7 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogTitle from "@mui/material/DialogTitle";
 import { toast } from "react-toastify";
+import { imageLoader } from "@/utils/imageLoader";
 
 interface Props {
   thisTrack: Track;
@@ -111,6 +112,7 @@ export const TrackItem = ({ thisTrack, albumid }: Props) => {
           {thisTrack.picture ? (
             <div className="w-10 h-10 rounded relative shrink-0 overflow-clip">
               <Image
+                loader={imageLoader}
                 alt={thisTrack.name}
                 src={`${process.env.NEXT_PUBLIC_BASE_URL}/${thisTrack.picture}`}
                 objectFit="cover"

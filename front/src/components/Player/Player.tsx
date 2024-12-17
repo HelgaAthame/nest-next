@@ -11,6 +11,7 @@ import {
   ChangeEvent,
   useCallback,
 } from "react";
+import { imageLoader } from "@/utils/imageLoader";
 
 const listensPlus = async (id: string): Promise<string> => {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
@@ -101,6 +102,7 @@ export const Player = () => {
           {track.picture ? (
             <div className="w-10 h-10 rounded relative shrink-0 overflow-clip">
               <Image
+                loader={imageLoader}
                 alt={track.name}
                 src={`${process.env.NEXT_PUBLIC_BASE_URL}/${track.picture}`}
                 objectFit="cover"

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { arrayBufferToBase64 } from "@/utils/arrayBufferToBase64";
 import Image from "next/legacy/image";
+import { imageLoader } from "@/utils/imageLoader";
 
 interface Props {
   file: File;
@@ -22,6 +23,7 @@ export const PicturePreview = ({ file }: Props) => {
     <div className="relative w-full grow h-max rounded-md ">
       {imageSrc && (
         <Image
+          loader={imageLoader}
           src={imageSrc}
           alt="image"
           layout="fill"
