@@ -10,8 +10,7 @@ const nextConfig = {
       },
       {
         protocol: "https",
-        hostname: "nest-next-production-e9c3.up.railway.app",
-        port: "5000",
+        hostname: "music-library-back-helgaathames-projects.vercel.app",
         pathname: "/image/**",
       },
     ],
