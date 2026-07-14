@@ -10,10 +10,7 @@ import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
     ServeStaticModule.forRoot({
       rootPath: resolve(__dirname, 'static'),
     }),
-    MongooseModule.forRoot(
-      'mongodb+srv://olgafront:666@cluster0.jmctt.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0',
-      // 'mongodb+srv://athame:666@athame.vwrzwf2.mongodb.net/',
-    ),
+    MongooseModule.forRoot(process.env.MONGODB_URI as string),
     FileModule,
     AlbumModule,
   ],
