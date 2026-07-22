@@ -1,10 +1,19 @@
 import { MongooseModule } from '@nestjs/mongoose';
 import { FileModule } from './file/file.module';
+import { resolve } from 'path';
+import { ServeStaticModule } from '@nestjs/serve-static';
 import { AlbumModule } from './album/album.module';
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 
 @Module({
   imports: [
+    // Serves uploaded files from FileService (audio/image). Excludes API
+    // routes so it can't intercept them with its SPA-style index.html
+    // fallback — that's what broke /albums earlier.
+    ServeStaticModule.forRoot({
+      rootPath: resolve(__dirname, 'static'),
+      exclude: ['/albums*', '/tracks*', '/swagger*'],
+    }),
     MongooseModule.forRoot(process.env.MONGODB_URI as string),
     FileModule,
     AlbumModule,
