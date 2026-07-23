@@ -114,7 +114,7 @@ export const TrackItem = ({ thisTrack, albumid }: Props) => {
               <Image
                 loader={imageLoader}
                 alt={thisTrack.name}
-                src={`${process.env.NEXT_PUBLIC_BASE_URL}/${thisTrack.picture}`}
+                src={thisTrack.picture}
                 objectFit="cover"
                 layout="fill"
               />

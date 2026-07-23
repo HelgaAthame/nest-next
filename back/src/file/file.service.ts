@@ -1,6 +1,5 @@
 import { ConflictException, Injectable } from '@nestjs/common';
-import * as path from 'path';
-import * as fs from 'fs/promises';
+import { put } from '@vercel/blob';
 import * as uuid from 'uuid';
 
 export enum FileType {
@@ -13,19 +12,14 @@ export class FileService {
   async createFile(type: FileType, file: Express.Multer.File): Promise<string> {
     try {
       const fileExt = file.originalname.split('.').pop();
-      const fileName = uuid.v4() + '.' + fileExt;
-      const filePath = path.resolve(__dirname, '..', 'static', type);
-      try {
-        await fs.access(filePath);
-      } catch (e) {
-        await fs.mkdir(filePath, { recursive: true });
-      }
-      await fs.writeFile(path.resolve(filePath, fileName), file.buffer);
-      return type + '/' + fileName;
+      const fileName = `${type}/${uuid.v4()}.${fileExt}`;
+      const blob = await put(fileName, file.buffer, {
+        access: 'public',
+        contentType: file.mimetype,
+      });
+      return blob.url;
     } catch (e) {
       throw new ConflictException('File was not created');
-      //HttpException(e.message, HttpStatus.INTERNAL_SERVER_ERROR);
-      //todo file was not created exception
     }
   }
 }

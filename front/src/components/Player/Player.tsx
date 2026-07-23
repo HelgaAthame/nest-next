@@ -69,7 +69,7 @@ export const Player = () => {
 
   useEffect(() => {
     if (track && audio) {
-      audio.src = `${process.env.NEXT_PUBLIC_BASE_URL}/${track.audio}`;
+      audio.src = track.audio;
       audio.volume = volume / 100;
       audio.addEventListener("ended", listenIncrease);
     }
@@ -104,7 +104,7 @@ export const Player = () => {
               <Image
                 loader={imageLoader}
                 alt={track.name}
-                src={`${process.env.NEXT_PUBLIC_BASE_URL}/${track.picture}`}
+                src={track.picture}
                 objectFit="cover"
                 layout="fill"
               />

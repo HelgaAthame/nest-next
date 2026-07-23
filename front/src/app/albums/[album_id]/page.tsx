@@ -21,7 +21,7 @@ export default async function AlbumPage({
     <div
       className="pd bg-cover flex w-full min-h-full"
       style={{
-        backgroundImage: `url(${process.env.NEXT_PUBLIC_BASE_URL}/${album.picture})`,
+        backgroundImage: `url(${album.picture})`,
       }}
     >
       <div className="pd grow backdrop-blur bg-white/70 flex flex-col gap-4 rounded-md">

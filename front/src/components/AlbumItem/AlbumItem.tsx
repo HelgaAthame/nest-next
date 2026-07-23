@@ -92,7 +92,7 @@ export const AlbumItem = ({ album }: Props) => {
         <div
           className="flex flex-col gap-2 bg-cover aspect-square grow rounded-md drop-shadow"
           style={{
-            backgroundImage: `url(${process.env.NEXT_PUBLIC_BASE_URL}/${album.picture})`,
+            backgroundImage: `url(${album.picture})`,
           }}
         >
           <div className="flex bg-white/50 flex-col items-start pd">
